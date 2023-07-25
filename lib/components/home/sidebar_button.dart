@@ -13,28 +13,19 @@ class SidebarButton extends StatefulWidget {
 }
 
 class _SidebarButtonState extends State<SidebarButton> {
-  int _hoverValue = 0;
   int _selectedValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (e) {
+    return InkWell(
+      onTap: () {
         setState(() {
-          _hoverValue = widget.value + 1;
-        });
-      },
-      onExit: (e) {
-        setState(() {
-          _hoverValue = 0;
+          _selectedValue = widget.value + 1;
         });
       },
       child: Container(
         padding: const EdgeInsets.all(25),
         decoration: BoxDecoration(
-          color: _hoverValue == widget.value + 1
-              ? Colors.grey.shade100
-              : Colors.white,
           border: Border(
             bottom: BorderSide(
               width: 2,

@@ -1,51 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:mozilit/components/home/sidebar_button.dart';
 import 'package:mozilit/components/home/tabs/all_tab.dart';
+import 'package:mozilit/components/home/tabs/pro_tab.dart';
+import 'package:mozilit/components/home/tabs/store_tab.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<Widget> _innerTabs = [
+    const AllTab(),
+    const ProTab(),
+    const StoreTab(),
+  ];
+
+  final int _selectedTab = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  height: 75,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                        width: 2,
-                        color: Colors.grey.shade300,
-                      ),
-                      bottom: BorderSide(
-                        width: 2,
-                        color: Colors.grey.shade300,
+          SizedBox(
+            height: 75,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        right: BorderSide(
+                          width: 2,
+                          color: Colors.grey.shade300,
+                        ),
                       ),
                     ),
-                  ),
-                  child: const Center(
-                    child: Text("L O G O"),
+                    child: const Center(
+                      child: Text("L O G O"),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 4,
-                child: Container(
-                  height: 75,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 2,
-                        color: Colors.grey.shade300,
-                      ),
-                    ),
-                  ),
-                  child: const Padding(
+                const Expanded(
+                  flex: 4,
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
@@ -73,8 +75,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [
@@ -84,6 +86,10 @@ class HomeScreen extends StatelessWidget {
                   height: 100,
                   decoration: BoxDecoration(
                     border: Border(
+                      top: BorderSide(
+                        width: 2,
+                        color: Colors.grey.shade300,
+                      ),
                       right: BorderSide(
                         width: 2,
                         color: Colors.grey.shade300,
@@ -110,6 +116,10 @@ class HomeScreen extends StatelessWidget {
                   height: 100,
                   decoration: BoxDecoration(
                     border: Border(
+                      top: BorderSide(
+                        width: 2,
+                        color: Colors.grey.shade300,
+                      ),
                       bottom: BorderSide(
                         width: 2,
                         color: Colors.grey.shade300,
@@ -156,9 +166,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   flex: 4,
-                  child: AllTab(),
+                  child: _innerTabs[_selectedTab],
                 ),
               ],
             ),

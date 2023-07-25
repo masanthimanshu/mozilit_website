@@ -12,16 +12,15 @@ class GreyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {},
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 15,
           horizontal: 45,
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.grey.shade300 : Colors.white,
+          color: isSelected ? Colors.grey.shade300 : Colors.transparent,
           border: Border.all(
             width: 2,
             color: Colors.grey.shade300,

@@ -17,10 +17,12 @@ class AllTab extends StatelessWidget {
                 buttonName: "All",
                 isSelected: true,
               ),
+              SizedBox(width: 40),
               GreyButton(
                 buttonName: "Pro",
                 isSelected: false,
               ),
+              SizedBox(width: 40),
               GreyButton(
                 buttonName: "Store",
                 isSelected: false,
@@ -44,12 +46,11 @@ class AllTab extends StatelessWidget {
               itemCount: 15,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
               ),
               itemBuilder: (e, index) {
                 return Container(
-                  color: Colors.grey,
+                  margin: const EdgeInsets.all(20),
+                  color: Colors.grey.shade300,
                 );
               },
             ),
