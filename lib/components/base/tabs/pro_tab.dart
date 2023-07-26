@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mozilit/components/home/grey_buttons.dart';
+import 'package:mozilit/components/base/app_card.dart';
+import 'package:mozilit/components/base/category_buttons.dart';
 
-class AllTab extends StatelessWidget {
-  const AllTab({super.key});
+class ProTab extends StatelessWidget {
+  const ProTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +16,20 @@ class AllTab extends StatelessWidget {
             children: [
               GreyButton(
                 buttonName: "All",
-                isSelected: true,
+                isSelected: false,
+                btnIndex: 0,
               ),
               SizedBox(width: 40),
               GreyButton(
                 buttonName: "Pro",
-                isSelected: false,
+                isSelected: true,
+                btnIndex: 1,
               ),
               SizedBox(width: 40),
               GreyButton(
                 buttonName: "Store",
                 isSelected: false,
+                btnIndex: 2,
               ),
             ],
           ),
@@ -35,7 +39,7 @@ class AllTab extends StatelessWidget {
               horizontal: 25,
             ),
             child: Text(
-              "Choose up to 3 templates (apps similar to your idea) to use as a base.",
+              "Build apps, websites, wearables – any software you can imagine. No coding skills needed.",
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -46,11 +50,12 @@ class AllTab extends StatelessWidget {
               itemCount: 15,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
+                mainAxisExtent: 575,
               ),
               itemBuilder: (e, index) {
-                return Container(
-                  margin: const EdgeInsets.all(20),
-                  color: Colors.grey.shade300,
+                return AppCard(
+                  value: index,
+                  imgName: "assets/images/pro_category.png",
                 );
               },
             ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mozilit/components/home/grey_buttons.dart';
+import 'package:mozilit/components/base/app_card.dart';
+import 'package:mozilit/components/base/category_buttons.dart';
 
-class StoreTab extends StatelessWidget {
-  const StoreTab({super.key});
+class AllTab extends StatelessWidget {
+  const AllTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +17,19 @@ class StoreTab extends StatelessWidget {
               GreyButton(
                 buttonName: "All",
                 isSelected: true,
+                btnIndex: 0,
               ),
               SizedBox(width: 40),
               GreyButton(
                 buttonName: "Pro",
                 isSelected: false,
+                btnIndex: 1,
               ),
               SizedBox(width: 40),
               GreyButton(
                 buttonName: "Store",
                 isSelected: false,
+                btnIndex: 2,
               ),
             ],
           ),
@@ -46,11 +50,12 @@ class StoreTab extends StatelessWidget {
               itemCount: 15,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
+                mainAxisExtent: 575,
               ),
               itemBuilder: (e, index) {
-                return Container(
-                  margin: const EdgeInsets.all(20),
-                  color: Colors.grey.shade300,
+                return AppCard(
+                  value: index,
+                  imgName: "assets/images/all_category.png",
                 );
               },
             ),

@@ -1,83 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:mozilit/components/home/sidebar_button.dart';
-import 'package:mozilit/components/home/tabs/all_tab.dart';
-import 'package:mozilit/components/home/tabs/pro_tab.dart';
-import 'package:mozilit/components/home/tabs/store_tab.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mozilit/components/app_bar.dart';
+import 'package:mozilit/components/base/sidebar_buttons.dart';
+import 'package:mozilit/components/base/tabs/all_tab.dart';
+import 'package:mozilit/components/base/tabs/pro_tab.dart';
+import 'package:mozilit/components/base/tabs/store_tab.dart';
+import 'package:mozilit/controllers/base/tab_index_controller.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class BaseScreen extends ConsumerStatefulWidget {
+  const BaseScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<BaseScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<BaseScreen> {
   final List<Widget> _innerTabs = [
     const AllTab(),
     const ProTab(),
     const StoreTab(),
   ];
 
-  final int _selectedTab = 0;
-
   @override
   Widget build(BuildContext context) {
+    final tabIndex = ref.watch(tabIndexProvider);
+
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
-            height: 75,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        right: BorderSide(
-                          width: 2,
-                          color: Colors.grey.shade300,
-                        ),
-                      ),
-                    ),
-                    child: const Center(
-                      child: Text("L O G O"),
-                    ),
-                  ),
-                ),
-                const Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          "1. Choose a base",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Text(
-                          "2. Refine features",
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Text(
-                          "3. Plan delivery",
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          const CustomAppBar(pageNumber: 1),
           Row(
             children: [
               Expanded(
@@ -168,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Expanded(
                   flex: 4,
-                  child: _innerTabs[_selectedTab],
+                  child: _innerTabs[tabIndex],
                 ),
               ],
             ),
