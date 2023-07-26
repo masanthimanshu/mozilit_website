@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "729304122110",
+    "project_id": "mozilit",
+    "storage_bucket": "mozilit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729304122110:android:f86b6b19afa66810469baf",
+        "android_client_info": {
+          "package_name": "com.example.mozilit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729304122110-aqh190rvib6tshgck7n06vkj1er3c1fm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUTQbTzw8b7bkiywpM7oayMl2ugpzReUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729304122110-aqh190rvib6tshgck7n06vkj1er3c1fm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
