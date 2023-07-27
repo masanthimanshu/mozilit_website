@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BaseSidebarButton extends StatefulWidget {
-  const BaseSidebarButton({
+class FeatureSidebarButton extends StatefulWidget {
+  const FeatureSidebarButton({
     super.key,
     required this.data,
     required this.value,
@@ -11,12 +11,11 @@ class BaseSidebarButton extends StatefulWidget {
   final String data;
 
   @override
-  State<BaseSidebarButton> createState() => _BaseSidebarButtonState();
+  State<FeatureSidebarButton> createState() => _FeatureSidebarButtonState();
 }
 
-class _BaseSidebarButtonState extends State<BaseSidebarButton> {
+class _FeatureSidebarButtonState extends State<FeatureSidebarButton> {
   int _hoverValue = 0;
-  int _selectedValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +45,21 @@ class _BaseSidebarButtonState extends State<BaseSidebarButton> {
         ),
         child: Row(
           children: [
-            Text(widget.data),
+            const Icon(
+              Icons.message_rounded,
+              color: Colors.grey,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              widget.data,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const Spacer(),
-            Checkbox(
-              value: widget.value + 1 == _selectedValue,
-              onChanged: (e) {
-                setState(() {
-                  _selectedValue = widget.value + 1;
-                });
-              },
+            const Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.grey,
             ),
           ],
         ),

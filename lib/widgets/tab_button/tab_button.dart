@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mozilit/controllers/base/tab_index_controller.dart';
+import 'package:mozilit/widgets/tab_button/tab_button_controller.dart';
 
-class GreyButton extends ConsumerWidget {
-  const GreyButton({
+class TabButton extends ConsumerWidget {
+  const TabButton({
     super.key,
-    required this.buttonName,
     required this.isSelected,
     required this.btnIndex,
+    required this.btnItem,
   });
 
-  final String buttonName;
   final bool isSelected;
+  final Widget btnItem;
   final int btnIndex;
 
   @override
@@ -26,18 +26,13 @@ class GreyButton extends ConsumerWidget {
           horizontal: 45,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.grey.shade300 : Colors.transparent,
+          color: isSelected ? Colors.grey.shade300 : Colors.white,
           border: Border.all(
             width: 2,
             color: Colors.grey.shade300,
           ),
         ),
-        child: Text(
-          buttonName,
-          style: TextStyle(
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
+        child: btnItem,
       ),
     );
   }

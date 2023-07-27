@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mozilit/components/base/app_card.dart';
-import 'package:mozilit/components/base/category_buttons.dart';
+import 'package:mozilit/widgets/tab_button/tab_button.dart';
 
 class ProTab extends StatelessWidget {
   const ProTab({super.key});
@@ -14,22 +14,27 @@ class ProTab extends StatelessWidget {
         children: [
           const Row(
             children: [
-              GreyButton(
-                buttonName: "All",
-                isSelected: false,
+              TabButton(
                 btnIndex: 0,
-              ),
-              SizedBox(width: 40),
-              GreyButton(
-                buttonName: "Pro",
-                isSelected: true,
-                btnIndex: 1,
-              ),
-              SizedBox(width: 40),
-              GreyButton(
-                buttonName: "Store",
                 isSelected: false,
+                btnItem: Text("All"),
+              ),
+              SizedBox(width: 40),
+              TabButton(
+                btnIndex: 1,
+                isSelected: true,
+                btnItem: Text(
+                  "Pro",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(width: 40),
+              TabButton(
                 btnIndex: 2,
+                isSelected: false,
+                btnItem: Text("Store"),
               ),
             ],
           ),

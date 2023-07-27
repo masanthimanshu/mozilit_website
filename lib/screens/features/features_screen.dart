@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mozilit/components/app_bar.dart';
+import 'package:mozilit/components/features/desktop_preview.dart';
 import 'package:mozilit/components/features/mobile_preview.dart';
+import 'package:mozilit/components/features/sidebar_buttons.dart';
+import 'package:mozilit/widgets/tab_button/tab_button.dart';
+import 'package:mozilit/widgets/tab_button/tab_button_controller.dart';
 
-class FeaturesScreen extends StatelessWidget {
+class FeaturesScreen extends ConsumerStatefulWidget {
   const FeaturesScreen({super.key});
 
   @override
+  ConsumerState<FeaturesScreen> createState() => _FeaturesScreenState();
+}
+
+class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
+  final List<Widget> _previews = [
+    const FeatureMobilePreview(),
+    const FeatureDesktopPreview(),
+  ];
+
+  @override
   Widget build(BuildContext context) {
+    final tabIndex = ref.watch(tabIndexProvider);
+
     return Scaffold(
       body: Column(
         children: [
@@ -55,10 +72,19 @@ class FeaturesScreen extends StatelessWidget {
                     Container(
                       height: 80,
                       color: Colors.grey.shade200,
-                      child: const Row(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Row(
                         children: [
-                          Icon(Icons.phone_android),
-                          Icon(Icons.desktop_mac_outlined),
+                          TabButton(
+                            btnIndex: 0,
+                            isSelected: tabIndex == 0,
+                            btnItem: const Icon(Icons.phone_android),
+                          ),
+                          TabButton(
+                            btnIndex: 1,
+                            isSelected: tabIndex == 1,
+                            btnItem: const Icon(Icons.desktop_mac_outlined),
+                          ),
                         ],
                       ),
                     ),
@@ -84,7 +110,10 @@ class FeaturesScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: 20,
                       itemBuilder: (e, index) {
-                        return const Text("qwerty");
+                        return FeatureSidebarButton(
+                          value: index,
+                          data: "Socials",
+                        );
                       },
                     ),
                   ),
@@ -93,23 +122,7 @@ class FeaturesScreen extends StatelessWidget {
                   flex: 4,
                   child: Container(
                     color: Colors.grey.shade200,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 250,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                "assets/images/features_image.png",
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 25),
-                        const FeatureMobilePreview(),
-                      ],
-                    ),
+                    child: _previews[tabIndex],
                   ),
                 ),
               ],
