@@ -1,115 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mozilit/components/app_bar.dart';
-import 'package:mozilit/components/features/desktop_preview.dart';
-import 'package:mozilit/components/features/mobile_preview.dart';
-import 'package:mozilit/components/features/sidebar_buttons.dart';
-import 'package:mozilit/widgets/tab_button/tab_button.dart';
-import 'package:mozilit/widgets/tab_button/tab_button_controller.dart';
 
-class FeaturesScreen extends ConsumerStatefulWidget {
-  const FeaturesScreen({super.key});
-
-  @override
-  ConsumerState<FeaturesScreen> createState() => _FeaturesScreenState();
-}
-
-class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
-  final List<Widget> _previews = [
-    const FeatureMobilePreview(),
-    const FeatureDesktopPreview(),
-  ];
+class DeliveryScreen extends StatelessWidget {
+  const DeliveryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final tabIndex = ref.watch(tabIndexProvider);
-
     return Scaffold(
       body: Column(
         children: [
-          const CustomAppBar(pageNumber: 2),
+          const CustomAppBar(pageNumber: 3),
           const Divider(thickness: 2, height: 2),
-          SizedBox(
-            height: 80,
-            child: Row(
-              children: [
-                const Expanded(
-                  flex: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search, color: Colors.grey),
-                      SizedBox(width: 10),
-                      Text(
-                        "Search for a feature",
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const VerticalDivider(thickness: 2, width: 2),
-                Expanded(
-                  flex: 4,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 80,
-                        color: Colors.grey.shade200,
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Row(
-                          children: [
-                            TabButton(
-                              btnIndex: 0,
-                              isSelected: tabIndex == 0,
-                              btnItem: const Icon(Icons.phone_android),
-                            ),
-                            TabButton(
-                              btnIndex: 1,
-                              isSelected: tabIndex == 1,
-                              btnItem: const Icon(Icons.desktop_mac_outlined),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            height: 2,
-            thickness: 2,
-            color: Colors.grey.shade200,
-          ),
           Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: ListView.builder(
-                    itemCount: 20,
-                    itemBuilder: (e, index) {
-                      return FeatureSidebarButton(
-                        value: index,
-                        data: "Socials",
-                      );
-                    },
-                  ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Decide your deliverables"),
+                        Text("Expected kick-off date"),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Select platform for your product"),
+                        Text("28 Jul 2023 (Today)"),
+                      ],
+                    ),
+                    const SizedBox(height: 25),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.android),
+                        ),
+                        const SizedBox(width: 25),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 25),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Select phases for your product "),
+                        Text("Advanced"),
+                      ],
+                    ),
+                  ],
                 ),
-                const VerticalDivider(thickness: 2, width: 2),
-                Expanded(
-                  flex: 4,
-                  child: Container(
-                    color: Colors.grey.shade200,
-                    child: _previews[tabIndex],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
+          const Divider(thickness: 2, height: 2),
           SizedBox(
             height: 80,
             child: Row(
@@ -229,15 +178,13 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                 ),
                 const Spacer(),
                 InkWell(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, "/delivery");
-                  },
+                  onTap: () {},
                   child: Container(
                     width: 200,
                     color: Colors.green,
                     child: const Center(
                       child: Text(
-                        "Plan Delivery",
+                        "Done",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

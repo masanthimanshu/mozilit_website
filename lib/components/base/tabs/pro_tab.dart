@@ -60,6 +60,7 @@ class ProTab extends StatelessWidget {
               itemBuilder: (e, index) {
                 return AppCard(
                   value: index,
+                  productName: "Accu Weather",
                   imgName: "assets/images/pro_category.png",
                 );
               },

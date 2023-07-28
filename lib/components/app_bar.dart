@@ -16,23 +16,14 @@ class CustomAppBar extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  right: BorderSide(
-                    width: 2,
-                    color: Colors.grey.shade300,
-                  ),
-                ),
-              ),
-              child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, "/"),
-                child: const Center(
-                  child: Text("L O G O"),
-                ),
+            child: GestureDetector(
+              onTap: () => Navigator.pushReplacementNamed(context, "/"),
+              child: const Center(
+                child: Text("L O G O"),
               ),
             ),
           ),
+          const VerticalDivider(thickness: 2, width: 2),
           Expanded(
             flex: 4,
             child: Padding(

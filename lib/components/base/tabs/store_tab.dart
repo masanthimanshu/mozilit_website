@@ -60,6 +60,7 @@ class StoreTab extends StatelessWidget {
               itemBuilder: (e, index) {
                 return AppCard(
                   value: index,
+                  productName: "E Commerce Website",
                   imgName: "assets/images/store_category.png",
                 );
               },

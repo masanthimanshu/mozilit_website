@@ -5,10 +5,12 @@ class AppCard extends StatefulWidget {
     super.key,
     required this.value,
     required this.imgName,
+    required this.productName,
   });
 
   final int value;
   final String imgName;
+  final String productName;
 
   @override
   State<AppCard> createState() => _AppCardState();
@@ -60,9 +62,9 @@ class _AppCardState extends State<AppCard> {
               ),
             ),
             const SizedBox(height: 5),
-            const Text(
-              "E Commerce Website",
-              style: TextStyle(
+            Text(
+              widget.productName,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -110,7 +112,9 @@ class _AppCardState extends State<AppCard> {
                 ),
                 const Spacer(),
                 ElevatedButton(
-                  onPressed: () => Navigator.pushNamed(context, "/feature"),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, "/feature");
+                  },
                   child: const Text("View Details"),
                 ),
               ],

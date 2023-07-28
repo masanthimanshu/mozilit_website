@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData appTheme = ThemeData(
-  textTheme: GoogleFonts.poppinsTextTheme().copyWith(
-    bodyMedium: const TextStyle(fontSize: 15),
-  ),
+  textTheme: GoogleFonts.poppinsTextTheme(),
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
     elevation: 1,

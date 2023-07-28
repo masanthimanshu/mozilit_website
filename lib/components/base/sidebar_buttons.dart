@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mozilit/widgets/sidebar/selected_value.dart';
 
-class BaseSidebarButton extends StatefulWidget {
+class BaseSidebarButton extends ConsumerStatefulWidget {
   const BaseSidebarButton({
     super.key,
     required this.data,
@@ -11,15 +13,16 @@ class BaseSidebarButton extends StatefulWidget {
   final String data;
 
   @override
-  State<BaseSidebarButton> createState() => _BaseSidebarButtonState();
+  ConsumerState<BaseSidebarButton> createState() => _BaseSidebarButtonState();
 }
 
-class _BaseSidebarButtonState extends State<BaseSidebarButton> {
+class _BaseSidebarButtonState extends ConsumerState<BaseSidebarButton> {
   int _hoverValue = 0;
-  int _selectedValue = 0;
 
   @override
   Widget build(BuildContext context) {
+    final selectedValue = ref.watch(selectedValueProvider);
+
     return MouseRegion(
       onEnter: (e) {
         setState(() {
@@ -49,11 +52,15 @@ class _BaseSidebarButtonState extends State<BaseSidebarButton> {
             Text(widget.data),
             const Spacer(),
             Checkbox(
-              value: widget.value + 1 == _selectedValue,
+              value: widget.value + 1 == selectedValue,
               onChanged: (e) {
-                setState(() {
-                  _selectedValue = widget.value + 1;
-                });
+                if (selectedValue == widget.value + 1) {
+                  ref.read(selectedValueProvider.notifier).update((state) => 0);
+                } else {
+                  ref
+                      .read(selectedValueProvider.notifier)
+                      .update((state) => widget.value + 1);
+                }
               },
             ),
           ],

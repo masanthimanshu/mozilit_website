@@ -33,29 +33,14 @@ class _HomeScreenState extends ConsumerState<BaseScreen> {
           ? Column(
               children: [
                 const CustomAppBar(pageNumber: 1),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            top: BorderSide(
-                              width: 2,
-                              color: Colors.grey.shade300,
-                            ),
-                            right: BorderSide(
-                              width: 2,
-                              color: Colors.grey.shade300,
-                            ),
-                            bottom: BorderSide(
-                              width: 2,
-                              color: Colors.grey.shade300,
-                            ),
-                          ),
-                        ),
-                        child: const Center(
+                const Divider(thickness: 2, height: 2),
+                const SizedBox(
+                  height: 100,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Center(
                           child: Text(
                             "Filter by category",
                             style: TextStyle(
@@ -64,66 +49,44 @@ class _HomeScreenState extends ConsumerState<BaseScreen> {
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            top: BorderSide(
-                              width: 2,
-                              color: Colors.grey.shade300,
-                            ),
-                            bottom: BorderSide(
-                              width: 2,
-                              color: Colors.grey.shade300,
-                            ),
-                          ),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Text(
+                      VerticalDivider(thickness: 2, width: 2),
+                      Expanded(
+                        flex: 4,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 20),
+                              child: Text(
                                 "Choose a base",
                                 style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                const Divider(thickness: 2, height: 2),
                 Expanded(
                   child: Row(
                     children: [
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              right: BorderSide(
-                                width: 2,
-                                color: Colors.grey.shade300,
-                              ),
-                            ),
-                          ),
-                          child: ListView.builder(
-                            itemCount: 20,
-                            itemBuilder: (e, index) {
-                              return BaseSidebarButton(
-                                value: index,
-                                data: res.value!.data[index].categoryName,
-                              );
-                            },
-                          ),
+                        child: ListView.builder(
+                          itemCount: res.value!.data.length,
+                          itemBuilder: (e, index) {
+                            return BaseSidebarButton(
+                              value: index,
+                              data: res.value!.data[index].categoryName,
+                            );
+                          },
                         ),
                       ),
+                      const VerticalDivider(thickness: 2, width: 2),
                       Expanded(
                         flex: 4,
                         child: _innerTabs[tabIndex],
