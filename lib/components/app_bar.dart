@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget {
           Expanded(
             flex: 1,
             child: GestureDetector(
-              onTap: () => Navigator.pushReplacementNamed(context, "/"),
+              onTap: () => Navigator.pushNamed(context, "/"),
               child: const Center(
                 child: Text("L O G O"),
               ),

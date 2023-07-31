@@ -230,7 +230,7 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                 const Spacer(),
                 InkWell(
                   onTap: () {
-                    Navigator.pushReplacementNamed(context, "/delivery");
+                    Navigator.pushNamed(context, "/delivery");
                   },
                   child: Container(
                     width: 200,

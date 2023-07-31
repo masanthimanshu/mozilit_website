@@ -113,7 +113,7 @@ class _AppCardState extends State<AppCard> {
                 const Spacer(),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, "/feature");
+                    Navigator.pushNamed(context, "/feature");
                   },
                   child: const Text("View Details"),
                 ),
