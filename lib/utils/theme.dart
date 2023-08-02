@@ -9,13 +9,27 @@ final ThemeData appTheme = ThemeData(
     foregroundColor: Colors.black,
     backgroundColor: Colors.white,
   ),
-  elevatedButtonTheme: const ElevatedButtonThemeData(
+  textButtonTheme: const TextButtonThemeData(
     style: ButtonStyle(
-      elevation: MaterialStatePropertyAll(0),
+      foregroundColor: MaterialStatePropertyAll(Colors.black),
+      textStyle: MaterialStatePropertyAll(
+        TextStyle(fontWeight: FontWeight.bold),
+      ),
       side: MaterialStatePropertyAll(
         BorderSide(width: 2, color: Colors.grey),
       ),
-      backgroundColor: MaterialStatePropertyAll(Colors.white),
+      padding: MaterialStatePropertyAll(
+        EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 40,
+        ),
+      ),
+    ),
+  ),
+  elevatedButtonTheme: const ElevatedButtonThemeData(
+    style: ButtonStyle(
+      elevation: MaterialStatePropertyAll(0),
+      backgroundColor: MaterialStatePropertyAll(Colors.green),
       foregroundColor: MaterialStatePropertyAll(Colors.black),
       textStyle: MaterialStatePropertyAll(
         TextStyle(fontWeight: FontWeight.bold),

@@ -48,7 +48,7 @@ class FeatureMobilePreview extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            ElevatedButton(
+            TextButton(
               onPressed: () {},
               child: const Row(
                 children: [

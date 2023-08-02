@@ -228,21 +228,14 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                   ),
                 ),
                 const Spacer(),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, "/delivery");
-                  },
-                  child: Container(
-                    width: 200,
-                    color: Colors.green,
-                    child: const Center(
-                      child: Text(
-                        "Plan Delivery",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                SizedBox(
+                  width: 200,
+                  height: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/delivery");
+                    },
+                    child: const Text("Plan Delivery"),
                   ),
                 ),
               ],

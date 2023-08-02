@@ -546,19 +546,12 @@ class DeliveryScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: 200,
-                    color: Colors.green,
-                    child: const Center(
-                      child: Text(
-                        "Done",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                SizedBox(
+                  width: 200,
+                  height: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("Done"),
                   ),
                 ),
               ],

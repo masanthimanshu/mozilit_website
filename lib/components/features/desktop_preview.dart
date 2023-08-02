@@ -38,7 +38,7 @@ class FeatureDesktopPreview extends StatelessWidget {
         const SizedBox(height: 20),
         SizedBox(
           width: 200,
-          child: ElevatedButton(
+          child: TextButton(
             onPressed: () {},
             child: const Row(
               children: [
