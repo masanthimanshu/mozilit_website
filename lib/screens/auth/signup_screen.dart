@@ -11,6 +11,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  String _msg = "";
   String _name = "";
   String _email = "";
   String _phone = "";
@@ -106,6 +107,34 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                        horizontal: 30,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: TextFormField(
+                        maxLines: 5,
+                        onChanged: (text) => _msg = text,
+                        decoration: const InputDecoration(
+                          hintText: "Message",
+                          border: InputBorder.none,
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your Message";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -122,13 +151,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             favorite: const ["IN"],
                             initialSelection: "IN",
                           ),
-                          const Text(
-                            "|",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.25,
                             child: TextFormField(

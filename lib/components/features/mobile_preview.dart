@@ -48,14 +48,23 @@ class FeatureMobilePreview extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            TextButton(
-              onPressed: () {},
-              child: const Row(
-                children: [
-                  Icon(Icons.list_alt),
-                  SizedBox(width: 10),
-                  Text("Add Note"),
-                ],
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  width: 2,
+                  color: Colors.grey,
+                ),
+              ),
+              child: TextButton(
+                onPressed: () {},
+                child: const Row(
+                  children: [
+                    Icon(Icons.list_alt),
+                    SizedBox(width: 10),
+                    Text("Add Note"),
+                  ],
+                ),
               ),
             ),
           ],

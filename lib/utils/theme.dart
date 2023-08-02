@@ -9,14 +9,17 @@ final ThemeData appTheme = ThemeData(
     foregroundColor: Colors.black,
     backgroundColor: Colors.white,
   ),
+  tabBarTheme: const TabBarTheme(
+    labelColor: Colors.black,
+    labelStyle: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+  ),
   textButtonTheme: const TextButtonThemeData(
     style: ButtonStyle(
       foregroundColor: MaterialStatePropertyAll(Colors.black),
       textStyle: MaterialStatePropertyAll(
         TextStyle(fontWeight: FontWeight.bold),
-      ),
-      side: MaterialStatePropertyAll(
-        BorderSide(width: 2, color: Colors.grey),
       ),
       padding: MaterialStatePropertyAll(
         EdgeInsets.symmetric(

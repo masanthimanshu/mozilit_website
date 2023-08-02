@@ -111,11 +111,20 @@ class _AppCardState extends State<AppCard> {
                   ),
                 ),
                 const Spacer(),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/feature");
-                  },
-                  child: const Text("View Details"),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/feature");
+                    },
+                    child: const Text("View Details"),
+                  ),
                 ),
               ],
             ),

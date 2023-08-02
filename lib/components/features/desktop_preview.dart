@@ -36,8 +36,15 @@ class FeatureDesktopPreview extends StatelessWidget {
         const SizedBox(height: 5),
         const Text("7.0 days"),
         const SizedBox(height: 20),
-        SizedBox(
+        Container(
           width: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              width: 2,
+              color: Colors.grey,
+            ),
+          ),
           child: TextButton(
             onPressed: () {},
             child: const Row(

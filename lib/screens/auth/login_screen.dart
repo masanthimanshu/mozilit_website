@@ -61,13 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             favorite: const ["IN"],
                             initialSelection: "IN",
                           ),
-                          const Text(
-                            "|",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.25,
                             child: TextFormField(
