@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mozilit/components/buildcard/buildcard_info.dart';
+import 'package:mozilit/components/buildcard/features.dart';
+import 'package:mozilit/components/buildcard/phases.dart';
+import 'package:mozilit/components/buildcard/similar_apps.dart';
 
 class BuildCardScreen extends StatelessWidget {
   const BuildCardScreen({super.key});
@@ -50,6 +54,17 @@ class BuildCardScreen extends StatelessWidget {
                         Tab(child: Text("Features (19)")),
                         Tab(child: Text("Phases (3)")),
                       ],
+                    ),
+                    SizedBox(height: 25),
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          BuildCardInfo(),
+                          BuildCarsSimilarApps(),
+                          BuildCardFeatures(),
+                          BuildCardPhases(),
+                        ],
+                      ),
                     ),
                   ],
                 ),
