@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mozilit/models/features/sidebar_data.dart';
 import 'package:mozilit/widgets/sidebar/selected_value.dart';
 
 class FeatureSidebarButton extends ConsumerStatefulWidget {
@@ -7,10 +8,12 @@ class FeatureSidebarButton extends ConsumerStatefulWidget {
     super.key,
     required this.data,
     required this.value,
+    required this.subMenu,
   });
 
   final int value;
   final String data;
+  final List<SubFeaature> subMenu;
 
   @override
   ConsumerState<FeatureSidebarButton> createState() =>
@@ -85,7 +88,7 @@ class _FeatureSidebarButtonState extends ConsumerState<FeatureSidebarButton> {
             ),
             selectedValue == widget.value + 1
                 ? ListView.builder(
-                    itemCount: 5,
+                    itemCount: widget.subMenu.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (e, index) {
@@ -98,20 +101,20 @@ class _FeatureSidebarButtonState extends ConsumerState<FeatureSidebarButton> {
                               color: Colors.indigo,
                             ),
                             const SizedBox(width: 5),
-                            const Column(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Data"),
-                                SizedBox(height: 5),
+                                Text(widget.subMenu[index].subFeature),
+                                const SizedBox(height: 5),
                                 Text(
-                                  "₹48,515.63",
-                                  style: TextStyle(
+                                  widget.subMenu[index].subPrice.toString(),
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                   ),
                                 ),
                                 Text(
-                                  "5.0 days",
-                                  style: TextStyle(
+                                  widget.subMenu[index].subDay.toString(),
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                   ),
                                 ),
