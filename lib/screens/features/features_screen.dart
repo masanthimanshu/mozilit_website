@@ -33,7 +33,7 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
           ? Column(
               children: [
                 const CustomAppBar(pageNumber: 2),
-                const Divider(thickness: 2, height: 2),
+                const Divider(thickness: 1, height: 2),
                 SizedBox(
                   height: 80,
                   child: Row(
@@ -54,7 +54,7 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                           ],
                         ),
                       ),
-                      const VerticalDivider(thickness: 2, width: 2),
+                      const VerticalDivider(thickness: 1, width: 2),
                       Expanded(
                         flex: 4,
                         child: Column(
@@ -107,7 +107,7 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                           },
                         ),
                       ),
-                      const VerticalDivider(thickness: 2, width: 2),
+                      const VerticalDivider(thickness: 1, width: 2),
                       Expanded(
                         flex: 4,
                         child: Container(

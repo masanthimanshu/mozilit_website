@@ -33,7 +33,7 @@ class _AppCardState extends State<AppCard> {
         });
       },
       child: Container(
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -83,10 +83,8 @@ class _AppCardState extends State<AppCard> {
             const SizedBox(height: 5),
             const Text("Order Management, Payments, Shopping Cart"),
             const SizedBox(height: 5),
-            const Text("+ 41 other features"),
-            const SizedBox(height: 10),
             const Divider(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             const Text(
               "FROM",
               style: TextStyle(

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData appTheme = ThemeData(
-  textTheme: GoogleFonts.poppinsTextTheme(),
+  useMaterial3: true,
   scaffoldBackgroundColor: Colors.white,
+  textTheme: GoogleFonts.poppinsTextTheme(),
   appBarTheme: const AppBarTheme(
-    elevation: 1,
+    elevation: 0,
     foregroundColor: Colors.black,
     backgroundColor: Colors.white,
   ),
@@ -15,22 +16,25 @@ final ThemeData appTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
   ),
-  textButtonTheme: const TextButtonThemeData(
+  textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
-      foregroundColor: MaterialStatePropertyAll(Colors.black),
-      textStyle: MaterialStatePropertyAll(
+      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      foregroundColor: const MaterialStatePropertyAll(Colors.black),
+      textStyle: const MaterialStatePropertyAll(
         TextStyle(fontWeight: FontWeight.bold),
       ),
-      padding: MaterialStatePropertyAll(
-        EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 40,
-        ),
+      padding: const MaterialStatePropertyAll(
+        EdgeInsets.symmetric(vertical: 20, horizontal: 40),
       ),
     ),
   ),
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
+      shape: MaterialStatePropertyAll(
+        BeveledRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
+      ),
       elevation: MaterialStatePropertyAll(0),
       backgroundColor: MaterialStatePropertyAll(Colors.green),
       foregroundColor: MaterialStatePropertyAll(Colors.black),

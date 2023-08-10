@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
           ),
-          const VerticalDivider(thickness: 2, width: 2),
+          const VerticalDivider(thickness: 1, width: 2),
           Expanded(
             flex: 4,
             child: Padding(
