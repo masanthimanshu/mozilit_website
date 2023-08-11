@@ -4,11 +4,10 @@ import 'package:mozilit/components/app_bar.dart';
 import 'package:mozilit/components/features/desktop_preview.dart';
 import 'package:mozilit/components/features/mobile_preview.dart';
 import 'package:mozilit/components/features/sidebar_buttons.dart';
+import 'package:mozilit/components/features/tab_button.dart';
 import 'package:mozilit/components/price_ticker.dart';
 import 'package:mozilit/controller/features/features_sidebar_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
-import 'package:mozilit/widgets/tab_button/tab_button.dart';
-import 'package:mozilit/widgets/tab_button/tab_button_controller.dart';
 
 class FeaturesScreen extends ConsumerStatefulWidget {
   const FeaturesScreen({super.key});
@@ -18,6 +17,9 @@ class FeaturesScreen extends ConsumerStatefulWidget {
 }
 
 class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
+  int _screenIndex = 0;
+  String _searchQuery = "";
+
   final List<Widget> _previews = [
     const FeatureMobilePreview(),
     const FeatureDesktopPreview(),
@@ -25,7 +27,6 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final tabIndex = ref.watch(tabIndexProvider);
     final res = ref.watch(getFeatureSidebarData(APIEndpoints().featureSidebar));
 
     return Scaffold(
@@ -38,17 +39,22 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                   height: 80,
                   child: Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         flex: 1,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.search, color: Colors.grey),
-                            SizedBox(width: 10),
-                            Text(
-                              "Search for a feature",
-                              style: TextStyle(
-                                color: Colors.grey,
+                            const Icon(Icons.search, color: Colors.grey),
+                            const SizedBox(width: 10),
+                            SizedBox(
+                              width: 200,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                onChanged: (text) => _searchQuery = text,
+                                decoration: const InputDecoration(
+                                  hintText: "Search for a feature",
+                                  border: InputBorder.none,
+                                ),
                               ),
                             ),
                           ],
@@ -65,16 +71,28 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                               padding: const EdgeInsets.only(left: 20),
                               child: Row(
                                 children: [
-                                  TabButton(
-                                    btnIndex: 0,
-                                    isSelected: tabIndex == 0,
-                                    btnItem: const Icon(Icons.phone_android),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _screenIndex = 0;
+                                      });
+                                    },
+                                    child: TabButton(
+                                      isSelected: _screenIndex == 0,
+                                      btnItem: const Icon(Icons.phone_android),
+                                    ),
                                   ),
-                                  TabButton(
-                                    btnIndex: 1,
-                                    isSelected: tabIndex == 1,
-                                    btnItem: const Icon(
-                                      Icons.desktop_mac_outlined,
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _screenIndex = 1;
+                                      });
+                                    },
+                                    child: TabButton(
+                                      isSelected: _screenIndex == 1,
+                                      btnItem: const Icon(
+                                        Icons.desktop_mac_outlined,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -112,7 +130,7 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                         flex: 4,
                         child: Container(
                           color: Colors.grey.shade200,
-                          child: _previews[tabIndex],
+                          child: _previews[_screenIndex],
                         ),
                       ),
                     ],

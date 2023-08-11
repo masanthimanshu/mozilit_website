@@ -20,32 +20,27 @@ final ThemeData appTheme = ThemeData(
     style: ButtonStyle(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       foregroundColor: const MaterialStatePropertyAll(Colors.black),
-      textStyle: const MaterialStatePropertyAll(
-        TextStyle(fontWeight: FontWeight.bold),
-      ),
       padding: const MaterialStatePropertyAll(
         EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+      ),
+      textStyle: const MaterialStatePropertyAll(
+        TextStyle(fontWeight: FontWeight.bold),
       ),
     ),
   ),
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
-      shape: MaterialStatePropertyAll(
-        BeveledRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
-      ),
       elevation: MaterialStatePropertyAll(0),
       backgroundColor: MaterialStatePropertyAll(Colors.green),
       foregroundColor: MaterialStatePropertyAll(Colors.black),
-      textStyle: MaterialStatePropertyAll(
-        TextStyle(fontWeight: FontWeight.bold),
+      shape: MaterialStatePropertyAll(
+        BeveledRectangleBorder(borderRadius: BorderRadius.zero),
       ),
       padding: MaterialStatePropertyAll(
-        EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 40,
-        ),
+        EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+      ),
+      textStyle: MaterialStatePropertyAll(
+        TextStyle(fontWeight: FontWeight.bold),
       ),
     ),
   ),

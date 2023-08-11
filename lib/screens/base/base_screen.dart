@@ -6,11 +6,18 @@ import 'package:mozilit/components/base/sidebar_buttons.dart';
 import 'package:mozilit/controller/base/base_sidebar_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
 
-class BaseScreen extends ConsumerWidget {
+class BaseScreen extends ConsumerStatefulWidget {
   const BaseScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BaseScreen> createState() => _BaseScreenState();
+}
+
+class _BaseScreenState extends ConsumerState<BaseScreen> {
+  String _searchQuery = "";
+
+  @override
+  Widget build(BuildContext context) {
     final res = ref.watch(getBaseSidebarData(APIEndpoints().baseSidebar));
 
     return Scaffold(
@@ -20,18 +27,28 @@ class BaseScreen extends ConsumerWidget {
                 const CustomAppBar(pageNumber: 1),
                 const Divider(thickness: 1, height: 2),
                 SizedBox(
-                  height: 100,
+                  height: 80,
                   child: Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         flex: 1,
-                        child: Center(
-                          child: Text(
-                            "Filter by category",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.search, color: Colors.grey),
+                            const SizedBox(width: 10),
+                            SizedBox(
+                              width: 200,
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                onChanged: (text) => _searchQuery = text,
+                                decoration: const InputDecoration(
+                                  hintText: "Filter by category",
+                                  border: InputBorder.none,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                       const VerticalDivider(thickness: 1, width: 2),

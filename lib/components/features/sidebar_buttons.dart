@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mozilit/controller/sidebar/selected_value.dart';
 import 'package:mozilit/models/features/sidebar_data.dart';
-import 'package:mozilit/widgets/sidebar/selected_value.dart';
 
 class FeatureSidebarButton extends ConsumerStatefulWidget {
   const FeatureSidebarButton({

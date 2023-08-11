@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mozilit/components/app_bar.dart';
 import 'package:mozilit/components/delivery/product_phase_card.dart';
 import 'package:mozilit/components/price_ticker.dart';
 
-class DeliveryScreen extends StatelessWidget {
+class DeliveryScreen extends StatefulWidget {
   const DeliveryScreen({super.key});
+
+  @override
+  State<DeliveryScreen> createState() => _DeliveryScreenState();
+}
+
+class _DeliveryScreenState extends State<DeliveryScreen> {
+  final String _currDate = DateFormat.yMMMEd().format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +47,7 @@ class DeliveryScreen extends StatelessWidget {
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
                           "Select platform for your product",
@@ -46,13 +55,7 @@ class DeliveryScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const Spacer(),
-                        const Text("28 Jul 2023 (Today)"),
-                        const SizedBox(width: 10),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Icon(Icons.keyboard_arrow_down),
-                        ),
+                        Text("$_currDate (Today)"),
                       ],
                     ),
                     const SizedBox(height: 25),
