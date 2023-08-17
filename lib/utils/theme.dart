@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData appTheme = ThemeData(
   useMaterial3: true,
+  focusColor: Colors.transparent,
   scaffoldBackgroundColor: Colors.white,
   textTheme: GoogleFonts.poppinsTextTheme(),
   appBarTheme: const AppBarTheme(

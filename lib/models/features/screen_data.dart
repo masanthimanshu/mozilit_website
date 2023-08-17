@@ -43,11 +43,15 @@ class Datum {
   final String discountType;
   final String coverImage;
   final String productImage;
-  final int discount;
   final List<ProductCategory> productCategory;
   final List<dynamic> productSubCategory;
   final List<Feaature> feaature;
   final List<dynamic> subFeaature;
+  final String productDesignDuration;
+  final String productProfessinalPrototype;
+  final int productMvpDuration;
+  final String productBuildDuration;
+  final String productRoadmap;
   final int status;
 
   Datum({
@@ -58,11 +62,15 @@ class Datum {
     required this.discountType,
     required this.coverImage,
     required this.productImage,
-    required this.discount,
     required this.productCategory,
     required this.productSubCategory,
     required this.feaature,
     required this.subFeaature,
+    required this.productDesignDuration,
+    required this.productProfessinalPrototype,
+    required this.productMvpDuration,
+    required this.productBuildDuration,
+    required this.productRoadmap,
     required this.status,
   });
 
@@ -74,7 +82,6 @@ class Datum {
         discountType: json["discount_type"],
         coverImage: json["cover_image"],
         productImage: json["product_image"],
-        discount: json["discount"],
         productCategory: List<ProductCategory>.from(
             json["product_category"].map((x) => ProductCategory.fromJson(x))),
         productSubCategory:
@@ -82,6 +89,11 @@ class Datum {
         feaature: List<Feaature>.from(
             json["feaature"].map((x) => Feaature.fromJson(x))),
         subFeaature: List<dynamic>.from(json["sub_feaature"].map((x) => x)),
+        productDesignDuration: json["product_design_duration"],
+        productProfessinalPrototype: json["product_professinal_prototype"],
+        productMvpDuration: json["product_mvp_duration"],
+        productBuildDuration: json["product_build_duration"],
+        productRoadmap: json["product_roadmap"],
         status: json["status"],
       );
 
@@ -93,13 +105,17 @@ class Datum {
         "discount_type": discountType,
         "cover_image": coverImage,
         "product_image": productImage,
-        "discount": discount,
         "product_category":
             List<dynamic>.from(productCategory.map((x) => x.toJson())),
         "product_sub_category":
             List<dynamic>.from(productSubCategory.map((x) => x)),
         "feaature": List<dynamic>.from(feaature.map((x) => x.toJson())),
         "sub_feaature": List<dynamic>.from(subFeaature.map((x) => x)),
+        "product_design_duration": productDesignDuration,
+        "product_professinal_prototype": productProfessinalPrototype,
+        "product_mvp_duration": productMvpDuration,
+        "product_build_duration": productBuildDuration,
+        "product_roadmap": productRoadmap,
         "status": status,
       };
 }
@@ -113,7 +129,7 @@ class Feaature {
 
   Feaature({
     required this.categoryId,
-    this.featureName,
+    required this.featureName,
     required this.status,
     required this.description,
     required this.subFeaature,
@@ -145,7 +161,7 @@ class ProductCategory {
 
   ProductCategory({
     required this.categoryId,
-    this.categoryName,
+    required this.categoryName,
     required this.categoryImage,
     required this.status,
     required this.subCategories,

@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mozilit/components/buildcard/buildcard_info.dart';
 import 'package:mozilit/components/buildcard/features.dart';
 import 'package:mozilit/components/buildcard/phases.dart';
 import 'package:mozilit/components/buildcard/similar_apps.dart';
 
-class BuildCardScreen extends StatelessWidget {
+class BuildCardScreen extends StatefulWidget {
   const BuildCardScreen({super.key});
+
+  @override
+  State<BuildCardScreen> createState() => _BuildCardScreenState();
+}
+
+class _BuildCardScreenState extends State<BuildCardScreen> {
+  final String _currDate = DateFormat.yMMMEd().format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
         children: [
-          const Expanded(
+          Expanded(
             flex: 2,
             child: Padding(
-              padding: EdgeInsets.all(25),
+              padding: const EdgeInsets.all(25),
               child: DefaultTabController(
                 length: 4,
                 child: Column(
@@ -24,30 +32,30 @@ class BuildCardScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Hi Himanshu,",
                           style: TextStyle(
                             color: Colors.grey,
                           ),
                         ),
                         Text(
-                          "Last edited: 02-Aug-2023",
-                          style: TextStyle(
+                          "Last edited: $_currDate",
+                          style: const TextStyle(
                             color: Colors.grey,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 5),
-                    Text(
+                    const SizedBox(height: 5),
+                    const Text(
                       "Here is your Buildcard®",
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 50),
-                    TabBar(
+                    const SizedBox(height: 50),
+                    const TabBar(
                       tabs: [
                         Tab(child: Text("Buildcard Info")),
                         Tab(child: Text("Similar Apps (1)")),
@@ -55,8 +63,8 @@ class BuildCardScreen extends StatelessWidget {
                         Tab(child: Text("Phases (3)")),
                       ],
                     ),
-                    SizedBox(height: 25),
-                    Expanded(
+                    const SizedBox(height: 25),
+                    const Expanded(
                       child: TabBarView(
                         children: [
                           BuildCardInfo(),

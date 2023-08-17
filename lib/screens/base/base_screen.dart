@@ -75,7 +75,9 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                                   ),
                                 ),
                                 child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, "/template");
+                                  },
                                   child: const Text("Custom Template"),
                                 ),
                               ),
