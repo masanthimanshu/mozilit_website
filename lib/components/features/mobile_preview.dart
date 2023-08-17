@@ -35,7 +35,7 @@ class FeatureMobilePreview extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    res.value!.data[0].name,
+                    res.value!.data.name,
                     style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -44,7 +44,7 @@ class FeatureMobilePreview extends ConsumerWidget {
                   const SizedBox(height: 30),
                   const Text("Security & Privacy"),
                   const SizedBox(height: 30),
-                  Text("₹ ${res.value!.data[0].price}"),
+                  Text("₹ ${res.value!.data.price}"),
                   const Text("7.0 days"),
                   const SizedBox(height: 30),
                   SizedBox(
