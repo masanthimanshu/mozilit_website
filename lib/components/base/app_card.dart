@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 
 class AppCard extends StatefulWidget {
   const AppCard({
     super.key,
     required this.value,
     required this.imgName,
+    required this.featureId,
     required this.productName,
   });
 
   final int value;
+  final int featureId;
   final String imgName;
   final String productName;
 
@@ -119,7 +122,9 @@ class _AppCardState extends State<AppCard> {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, "/feature");
+                      Routemaster.of(context).push(
+                        "/feature/${widget.featureId}",
+                      );
                     },
                     child: const Text("View Details"),
                   ),

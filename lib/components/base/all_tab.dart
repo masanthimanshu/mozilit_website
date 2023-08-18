@@ -23,6 +23,7 @@ class AllTab extends ConsumerWidget {
               itemBuilder: (e, index) {
                 return AppCard(
                   value: index,
+                  featureId: res.value!.data[index].id,
                   productName: res.value!.data[index].name,
                   imgName: "assets/images/all_category.png",
                 );

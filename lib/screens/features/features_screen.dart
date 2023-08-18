@@ -10,7 +10,12 @@ import 'package:mozilit/controller/features/features_sidebar_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
 
 class FeaturesScreen extends ConsumerStatefulWidget {
-  const FeaturesScreen({super.key});
+  const FeaturesScreen({
+    super.key,
+    required this.name,
+  });
+
+  final String name;
 
   @override
   ConsumerState<FeaturesScreen> createState() => _FeaturesScreenState();
@@ -19,11 +24,20 @@ class FeaturesScreen extends ConsumerStatefulWidget {
 class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
   int _screenIndex = 0;
   String _searchQuery = "";
+  final List<Widget> _previews = [];
 
-  final List<Widget> _previews = [
-    const FeatureMobilePreview(),
-    const FeatureDesktopPreview(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+
+    _previews.add(
+      FeatureMobilePreview(featureId: widget.name),
+    );
+
+    _previews.add(
+      FeatureDesktopPreview(featureId: widget.name),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

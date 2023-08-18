@@ -8,15 +8,20 @@ import 'package:mozilit/screens/buildcard/buildcard_screen.dart';
 import 'package:mozilit/screens/custom_template/custom_template.dart';
 import 'package:mozilit/screens/delivery/delivery_screen.dart';
 import 'package:mozilit/screens/features/features_screen.dart';
+import 'package:routemaster/routemaster.dart';
 
-final Map<String, WidgetBuilder> appRoutes = {
-  '/': (e) => const BaseScreen(),
-  '/otp': (e) => const OTPScreen(),
-  '/login': (e) => const LoginScreen(),
-  '/signup': (e) => const SignupScreen(),
-  '/feature': (e) => const FeaturesScreen(),
-  '/template': (e) => const CustomTemplate(),
-  '/delivery': (e) => const DeliveryScreen(),
-  '/build-card': (e) => const BuildCardScreen(),
-  '/billing': (e) => const BillingDetailsScreen(),
-};
+final appRoutes = RouteMap(
+  routes: {
+    '/': (e) => const MaterialPage(child: BaseScreen()),
+    '/otp': (e) => const MaterialPage(child: OTPScreen()),
+    '/login': (e) => const MaterialPage(child: LoginScreen()),
+    '/signup': (e) => const MaterialPage(child: SignupScreen()),
+    '/template': (e) => const MaterialPage(child: CustomTemplate()),
+    '/delivery': (e) => const MaterialPage(child: DeliveryScreen()),
+    '/build-card': (e) => const MaterialPage(child: BuildCardScreen()),
+    '/billing': (e) => const MaterialPage(child: BillingDetailsScreen()),
+    '/feature/:name': (e) => MaterialPage(
+          child: FeaturesScreen(name: e.pathParameters["name"]!),
+        ),
+  },
+);

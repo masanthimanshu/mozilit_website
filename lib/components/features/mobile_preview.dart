@@ -4,11 +4,18 @@ import 'package:mozilit/controller/features/feature_screen_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
 
 class FeatureMobilePreview extends ConsumerWidget {
-  const FeatureMobilePreview({super.key});
+  const FeatureMobilePreview({
+    super.key,
+    required this.featureId,
+  });
+
+  final String featureId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final res = ref.watch(getFeatureScreenData(APIEndpoints().featureScreen));
+    final res = ref.watch(
+      getFeatureScreenData(APIEndpoints().featureScreen + featureId),
+    );
 
     return res.hasValue
         ? Row(
@@ -49,9 +56,7 @@ class FeatureMobilePreview extends ConsumerWidget {
                   const SizedBox(height: 30),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.25,
-                    child: const Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                    ),
+                    child: Text(res.value!.data.description),
                   ),
                   const SizedBox(height: 30),
                   Container(

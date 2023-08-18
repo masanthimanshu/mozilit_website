@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 
 class PriceTicker extends StatelessWidget {
   const PriceTicker({
@@ -134,9 +135,7 @@ class PriceTicker extends StatelessWidget {
             width: 200,
             height: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, routeName);
-              },
+              onPressed: () => Routemaster.of(context).push(routeName),
               child: Text(btnText),
             ),
           ),

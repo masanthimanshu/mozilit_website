@@ -5,6 +5,7 @@ import 'package:mozilit/components/base/all_tab.dart';
 import 'package:mozilit/components/base/sidebar_buttons.dart';
 import 'package:mozilit/controller/base/base_sidebar_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
+import 'package:routemaster/routemaster.dart';
 
 class BaseScreen extends ConsumerStatefulWidget {
   const BaseScreen({super.key});
@@ -76,7 +77,7 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                                 ),
                                 child: TextButton(
                                   onPressed: () {
-                                    Navigator.pushNamed(context, "/template");
+                                    Routemaster.of(context).push("/template");
                                   },
                                   child: const Text("Custom Template"),
                                 ),

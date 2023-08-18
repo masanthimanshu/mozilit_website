@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
@@ -17,10 +18,8 @@ class CustomAppBar extends StatelessWidget {
           Expanded(
             flex: 1,
             child: GestureDetector(
-              onTap: () => Navigator.pushNamed(context, "/"),
-              child: const Center(
-                child: Text("L O G O"),
-              ),
+              onTap: () => Routemaster.of(context).push("/"),
+              child: const Center(child: Text("L O G O")),
             ),
           ),
           const VerticalDivider(thickness: 1, width: 2),
