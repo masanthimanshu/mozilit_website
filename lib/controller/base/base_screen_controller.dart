@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mozilit/models/base/tabs/all_tabs_model.dart';
+import 'package:mozilit/models/base/screen_model.dart';
 import 'package:mozilit/network/requests.dart';
 
 final getAllTabsData = FutureProvider.family((ref, String url) {
@@ -7,10 +7,10 @@ final getAllTabsData = FutureProvider.family((ref, String url) {
 });
 
 class AllTabsController {
-  Future<AllTabsModel?> getData(String url) async {
+  Future<BaseScreenModel?> getData(String url) async {
     final data = await GetRequest().getJsonData(url);
 
-    if (data != null) return allTabsModelFromJson(data);
+    if (data != null) return baseScreenModelFromJson(data);
     return null;
   }
 }

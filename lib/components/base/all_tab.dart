@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mozilit/components/base/app_card.dart';
-import 'package:mozilit/controller/base/tabs_controller.dart';
+import 'package:mozilit/controller/base/base_screen_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
 
 class AllTab extends ConsumerWidget {
@@ -9,7 +9,7 @@ class AllTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final res = ref.watch(getAllTabsData(APIEndpoints().allTabsData));
+    final res = ref.watch(getAllTabsData(APIEndpoints().baseScreen));
 
     return Padding(
       padding: const EdgeInsets.all(10),

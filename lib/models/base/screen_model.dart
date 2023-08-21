@@ -1,26 +1,28 @@
 // To parse this JSON data, do
 //
-//     final allTabsModel = allTabsModelFromJson(jsonString);
+//     final baseScreenModel = baseScreenModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AllTabsModel allTabsModelFromJson(String str) =>
-    AllTabsModel.fromJson(json.decode(str));
+BaseScreenModel baseScreenModelFromJson(String str) =>
+    BaseScreenModel.fromJson(json.decode(str));
 
-String allTabsModelToJson(AllTabsModel data) => json.encode(data.toJson());
+String baseScreenModelToJson(BaseScreenModel data) =>
+    json.encode(data.toJson());
 
-class AllTabsModel {
+class BaseScreenModel {
   final String message;
   final List<Datum> data;
   final int status;
 
-  AllTabsModel({
+  BaseScreenModel({
     required this.message,
     required this.data,
     required this.status,
   });
 
-  factory AllTabsModel.fromJson(Map<String, dynamic> json) => AllTabsModel(
+  factory BaseScreenModel.fromJson(Map<String, dynamic> json) =>
+      BaseScreenModel(
         message: json["Message"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
         status: json["Status"],
@@ -41,15 +43,17 @@ class Datum {
   final String discountType;
   final String coverImage;
   final String productImage;
-  final List<ProductCategory> productCategory;
+  final dynamic productCategory;
   final List<dynamic> productSubCategory;
   final List<Feaature> feaature;
   final List<dynamic> subFeaature;
-  final String productDesignDuration;
-  final String productProfessinalPrototype;
+  final dynamic productDesignDuration;
+  final dynamic productProfessinalPrototype;
   final int productMvpDuration;
-  final String productBuildDuration;
+  final dynamic productBuildDuration;
+  final dynamic productPlatform;
   final String productRoadmap;
+  final String productCustomStatus;
   final int status;
 
   Datum({
@@ -68,7 +72,9 @@ class Datum {
     required this.productProfessinalPrototype,
     required this.productMvpDuration,
     required this.productBuildDuration,
+    required this.productPlatform,
     required this.productRoadmap,
+    required this.productCustomStatus,
     required this.status,
   });
 
@@ -80,8 +86,7 @@ class Datum {
         discountType: json["discount_type"],
         coverImage: json["cover_image"],
         productImage: json["product_image"],
-        productCategory: List<ProductCategory>.from(
-            json["product_category"].map((x) => ProductCategory.fromJson(x))),
+        productCategory: json["product_category"],
         productSubCategory:
             List<dynamic>.from(json["product_sub_category"].map((x) => x)),
         feaature: List<Feaature>.from(
@@ -91,7 +96,9 @@ class Datum {
         productProfessinalPrototype: json["product_professinal_prototype"],
         productMvpDuration: json["product_mvp_duration"],
         productBuildDuration: json["product_build_duration"],
+        productPlatform: json["product_platform"],
         productRoadmap: json["product_roadmap"],
+        productCustomStatus: json["product_custom_status"],
         status: json["status"],
       );
 
@@ -103,8 +110,7 @@ class Datum {
         "discount_type": discountType,
         "cover_image": coverImage,
         "product_image": productImage,
-        "product_category":
-            List<dynamic>.from(productCategory.map((x) => x.toJson())),
+        "product_category": productCategory,
         "product_sub_category":
             List<dynamic>.from(productSubCategory.map((x) => x)),
         "feaature": List<dynamic>.from(feaature.map((x) => x.toJson())),
@@ -113,7 +119,9 @@ class Datum {
         "product_professinal_prototype": productProfessinalPrototype,
         "product_mvp_duration": productMvpDuration,
         "product_build_duration": productBuildDuration,
+        "product_platform": productPlatform,
         "product_roadmap": productRoadmap,
+        "product_custom_status": productCustomStatus,
         "status": status,
       };
 }
@@ -150,14 +158,14 @@ class Feaature {
       };
 }
 
-class ProductCategory {
+class ProductCategoryElement {
   final int categoryId;
   final dynamic categoryName;
   final String categoryImage;
   final String status;
   final String subCategories;
 
-  ProductCategory({
+  ProductCategoryElement({
     required this.categoryId,
     required this.categoryName,
     required this.categoryImage,
@@ -165,8 +173,8 @@ class ProductCategory {
     required this.subCategories,
   });
 
-  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
-      ProductCategory(
+  factory ProductCategoryElement.fromJson(Map<String, dynamic> json) =>
+      ProductCategoryElement(
         categoryId: json["category_id"],
         categoryName: json["category_name"],
         categoryImage: json["category_image"],
@@ -180,5 +188,90 @@ class ProductCategory {
         "category_image": categoryImage,
         "status": status,
         "sub_categories": subCategories,
+      };
+}
+
+class ProductPlatformElement {
+  final int id;
+  final int platformId;
+  final int itemId;
+  final int userId;
+  final String status;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final PlatformName platformName;
+
+  ProductPlatformElement({
+    required this.id,
+    required this.platformId,
+    required this.itemId,
+    required this.userId,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.platformName,
+  });
+
+  factory ProductPlatformElement.fromJson(Map<String, dynamic> json) =>
+      ProductPlatformElement(
+        id: json["id"],
+        platformId: json["platform_id"],
+        itemId: json["item_id"],
+        userId: json["user_id"],
+        status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        platformName: PlatformName.fromJson(json["platform_name"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "platform_id": platformId,
+        "item_id": itemId,
+        "user_id": userId,
+        "status": status,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "platform_name": platformName.toJson(),
+      };
+}
+
+class PlatformName {
+  final int id;
+  final String name;
+  final String image;
+  final String commission;
+  final String status;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  PlatformName({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.commission,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory PlatformName.fromJson(Map<String, dynamic> json) => PlatformName(
+        id: json["id"],
+        name: json["name"],
+        image: json["image"],
+        commission: json["Commission"],
+        status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "image": image,
+        "Commission": commission,
+        "status": status,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
       };
 }

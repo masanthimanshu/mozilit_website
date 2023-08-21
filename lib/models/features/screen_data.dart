@@ -43,7 +43,7 @@ class Data {
   final String discountType;
   final String coverImage;
   final String productImage;
-  final List<dynamic> productCategory;
+  final String productCategory;
   final List<dynamic> productSubCategory;
   final List<dynamic> feaature;
   final List<dynamic> subFeaature;
@@ -51,7 +51,9 @@ class Data {
   final String productProfessinalPrototype;
   final int productMvpDuration;
   final String productBuildDuration;
+  final String productPlatform;
   final String productRoadmap;
+  final String productCustomStatus;
   final int status;
 
   Data({
@@ -70,7 +72,9 @@ class Data {
     required this.productProfessinalPrototype,
     required this.productMvpDuration,
     required this.productBuildDuration,
+    required this.productPlatform,
     required this.productRoadmap,
+    required this.productCustomStatus,
     required this.status,
   });
 
@@ -82,8 +86,7 @@ class Data {
         discountType: json["discount_type"],
         coverImage: json["cover_image"],
         productImage: json["product_image"],
-        productCategory:
-            List<dynamic>.from(json["product_category"].map((x) => x)),
+        productCategory: json["product_category"],
         productSubCategory:
             List<dynamic>.from(json["product_sub_category"].map((x) => x)),
         feaature: List<dynamic>.from(json["feaature"].map((x) => x)),
@@ -92,7 +95,9 @@ class Data {
         productProfessinalPrototype: json["product_professinal_prototype"],
         productMvpDuration: json["product_mvp_duration"],
         productBuildDuration: json["product_build_duration"],
+        productPlatform: json["product_platform"],
         productRoadmap: json["product_roadmap"],
+        productCustomStatus: json["product_custom_status"],
         status: json["status"],
       );
 
@@ -104,7 +109,7 @@ class Data {
         "discount_type": discountType,
         "cover_image": coverImage,
         "product_image": productImage,
-        "product_category": List<dynamic>.from(productCategory.map((x) => x)),
+        "product_category": productCategory,
         "product_sub_category":
             List<dynamic>.from(productSubCategory.map((x) => x)),
         "feaature": List<dynamic>.from(feaature.map((x) => x)),
@@ -113,7 +118,9 @@ class Data {
         "product_professinal_prototype": productProfessinalPrototype,
         "product_mvp_duration": productMvpDuration,
         "product_build_duration": productBuildDuration,
+        "product_platform": productPlatform,
         "product_roadmap": productRoadmap,
+        "product_custom_status": productCustomStatus,
         "status": status,
       };
 }
