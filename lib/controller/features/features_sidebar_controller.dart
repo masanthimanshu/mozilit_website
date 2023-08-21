@@ -8,7 +8,7 @@ final getFeatureSidebarData = FutureProvider.family((ref, String url) {
 
 class FeatureSidebarController {
   Future<FeatureSidebarModel?> getData(String url) async {
-    final data = await GetRequest().getJsonData(url);
+    final data = await ApiRequests().getRequest(url);
 
     if (data != null) return featureSidebarModelFromJson(data);
     return null;

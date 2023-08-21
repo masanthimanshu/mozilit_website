@@ -8,7 +8,7 @@ final getBaseSidebarData = FutureProvider.family((ref, String url) {
 
 class BaseSidebarController {
   Future<BaseSidebarModel?> getData(String url) async {
-    final data = await GetRequest().getJsonData(url);
+    final data = await ApiRequests().getRequest(url);
 
     if (data != null) return baseSidebarModelFromJson(data);
     return null;

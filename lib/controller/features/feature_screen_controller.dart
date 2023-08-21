@@ -8,7 +8,7 @@ final getFeatureScreenData = FutureProvider.family((ref, String url) {
 
 class FeatureScreenController {
   Future<FeatureScreenModel?> getData(String url) async {
-    final data = await GetRequest().getJsonData(url);
+    final data = await ApiRequests().getRequest(url);
 
     if (data != null) return featureScreenModelFromJson(data);
     return null;

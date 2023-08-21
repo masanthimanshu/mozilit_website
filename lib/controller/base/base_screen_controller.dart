@@ -8,7 +8,7 @@ final getAllTabsData = FutureProvider.family((ref, String url) {
 
 class AllTabsController {
   Future<BaseScreenModel?> getData(String url) async {
-    final data = await GetRequest().getJsonData(url);
+    final data = await ApiRequests().getRequest(url);
 
     if (data != null) return baseScreenModelFromJson(data);
     return null;
