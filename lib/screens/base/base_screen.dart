@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mozilit/components/app_bar.dart';
-import 'package:mozilit/components/base/all_tab.dart';
+import 'package:mozilit/components/base/app_card.dart';
 import 'package:mozilit/components/base/sidebar_buttons.dart';
+import 'package:mozilit/controller/base/base_screen_controller.dart';
 import 'package:mozilit/controller/base/base_sidebar_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
 import 'package:routemaster/routemaster.dart';
@@ -19,10 +20,16 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final res = ref.watch(getBaseSidebarData(APIEndpoints().baseSidebar));
+    final sidebarData = ref.watch(
+      getBaseSidebarData(APIEndpoints().baseSidebar),
+    );
+
+    final templatesData = ref.watch(
+      getBaseScreenData(APIEndpoints().baseScreen),
+    );
 
     return Scaffold(
-      body: res.hasValue
+      body: sidebarData.hasValue
           ? Column(
               children: [
                 const CustomAppBar(pageNumber: 1),
@@ -96,19 +103,38 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                       Expanded(
                         flex: 1,
                         child: ListView.builder(
-                          itemCount: res.value!.data.length,
+                          itemCount: sidebarData.value!.data.length,
                           itemBuilder: (e, index) {
                             return BaseSidebarButton(
                               value: index,
-                              data: res.value!.data[index].categoryName,
+                              data: sidebarData.value!.data[index].categoryName,
                             );
                           },
                         ),
                       ),
                       const VerticalDivider(thickness: 1, width: 2),
-                      const Expanded(
+                      Expanded(
                         flex: 4,
-                        child: AllTab(),
+                        child: templatesData.hasValue
+                            ? GridView.builder(
+                                itemCount: templatesData.value!.data.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisExtent: 525,
+                                ),
+                                itemBuilder: (e, index) {
+                                  return AppCard(
+                                    value: index,
+                                    featureId:
+                                        templatesData.value!.data[index].id,
+                                    productName:
+                                        templatesData.value!.data[index].name,
+                                    imgName: "assets/images/all_category.png",
+                                  );
+                                },
+                              )
+                            : const Center(child: Text("No Feature Selected")),
                       ),
                     ],
                   ),

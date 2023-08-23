@@ -207,8 +207,9 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                             children: [
                               Expanded(
                                 flex: 2,
-                                child: Image.asset(
-                                  "assets/images/delivery_timeline.png",
+                                child: Container(
+                                  height: 200,
+                                  color: Colors.white,
                                 ),
                               ),
                               const SizedBox(width: 20),

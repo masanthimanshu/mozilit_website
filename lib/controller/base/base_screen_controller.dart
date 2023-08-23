@@ -2,11 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mozilit/models/base/screen_model.dart';
 import 'package:mozilit/network/requests.dart';
 
-final getAllTabsData = FutureProvider.family((ref, String url) {
-  return AllTabsController().getData(url);
+final getBaseScreenData = FutureProvider.family((ref, String url) {
+  return BaseScreenController().getData(url);
 });
 
-class AllTabsController {
+class BaseScreenController {
   Future<BaseScreenModel?> getData(String url) async {
     final data = await ApiRequests().getRequest(url);
 
