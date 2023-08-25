@@ -91,9 +91,9 @@ class _DeliveryTimelinesState extends State<DeliveryTimelines> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("₹ ₹8,95,800"),
-                      Text("₹ ₹8,95,800"),
-                      Text("₹ ₹8,95,800"),
+                      Text("₹ 1,00,000"),
+                      Text("₹ 1,50,000"),
+                      Text("₹ 2,00,000"),
                     ],
                   ),
                 ),

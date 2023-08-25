@@ -9,4 +9,6 @@ class APIEndpoints {
       "http://137.184.60.122/public/superAdminLogin/mozilitech/mozilitech/api/v1/template/gettemplateList";
   final String featureSidebar =
       "http://137.184.60.122/public/superAdminLogin/mozilitech/mozilitech/api/v1/feature/get_all_Feature";
+  final String platformData =
+      "http://137.184.60.122/public/superAdminLogin/mozilitech/mozilitech/api/v1/platform/get_platform";
 }
