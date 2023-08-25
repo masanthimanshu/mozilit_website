@@ -134,7 +134,7 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                                   );
                                 },
                               )
-                            : const Center(child: Text("No Feature Selected")),
+                            : const Center(child: CircularProgressIndicator()),
                       ),
                     ],
                   ),

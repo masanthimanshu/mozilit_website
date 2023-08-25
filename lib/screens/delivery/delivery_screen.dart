@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mozilit/components/app_bar.dart';
+import 'package:mozilit/components/delivery/delivery_timelines.dart';
 import 'package:mozilit/components/delivery/product_phase_card.dart';
 import 'package:mozilit/components/price_ticker.dart';
 
-class DeliveryScreen extends StatefulWidget {
+class DeliveryScreen extends StatelessWidget {
   const DeliveryScreen({super.key});
-
-  @override
-  State<DeliveryScreen> createState() => _DeliveryScreenState();
-}
-
-class _DeliveryScreenState extends State<DeliveryScreen> {
-  final String _currDate = DateFormat.yMMMEd().format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +49,9 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text("$_currDate (Today)"),
+                        Text(
+                          "${DateFormat.yMMMEd().format(DateTime.now())} (Today)",
+                        ),
                       ],
                     ),
                     const SizedBox(height: 25),
@@ -192,92 +188,18 @@ class _DeliveryScreenState extends State<DeliveryScreen> {
                     Container(
                       color: Colors.blue.shade50,
                       padding: const EdgeInsets.all(25),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "When do you want the delivery?",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  height: 200,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  padding: const EdgeInsets.all(15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: const Column(
-                                    children: [
-                                      Text(
-                                        "Relaxed",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        "Our most budget-friendly option for those who aren't in a hurry.",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  padding: const EdgeInsets.all(15),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: const Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "If you kick-off on 31 Jul 2023",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Row(
-                                        children: [
-                                          Text("Estimated First delivery"),
-                                          Spacer(),
-                                          Text("04-Oct-2023"),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("Estimated Final delivery"),
-                                          Spacer(),
-                                          Text("13-Nov-2023"),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          SizedBox(height: 20),
+                          DeliveryTimelines(),
                         ],
                       ),
                     ),

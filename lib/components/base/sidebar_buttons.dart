@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mozilit/controller/sidebar/selected_value.dart';
 
 class BaseSidebarButton extends ConsumerStatefulWidget {
   const BaseSidebarButton({
@@ -18,11 +17,10 @@ class BaseSidebarButton extends ConsumerStatefulWidget {
 
 class _BaseSidebarButtonState extends ConsumerState<BaseSidebarButton> {
   int _hoverValue = 0;
+  int _selectedValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    final selectedValue = ref.watch(selectedValueProvider);
-
     return MouseRegion(
       onEnter: (e) {
         setState(() {
@@ -52,14 +50,16 @@ class _BaseSidebarButtonState extends ConsumerState<BaseSidebarButton> {
             Text(widget.data),
             const Spacer(),
             Checkbox(
-              value: widget.value + 1 == selectedValue,
+              value: widget.value + 1 == _selectedValue,
               onChanged: (e) {
-                if (selectedValue == widget.value + 1) {
-                  ref.read(selectedValueProvider.notifier).update((state) => 0);
+                if (_selectedValue == widget.value + 1) {
+                  setState(() {
+                    _selectedValue = 0;
+                  });
                 } else {
-                  ref
-                      .read(selectedValueProvider.notifier)
-                      .update((state) => widget.value + 1);
+                  setState(() {
+                    _selectedValue = widget.value + 1;
+                  });
                 }
               },
             ),

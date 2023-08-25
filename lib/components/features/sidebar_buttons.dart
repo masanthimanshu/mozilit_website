@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mozilit/controller/sidebar/selected_value.dart';
 import 'package:mozilit/models/features/sidebar_data.dart';
 
 class FeatureSidebarButton extends ConsumerStatefulWidget {
@@ -22,11 +21,10 @@ class FeatureSidebarButton extends ConsumerStatefulWidget {
 
 class _FeatureSidebarButtonState extends ConsumerState<FeatureSidebarButton> {
   int _hoverValue = 0;
+  int _selectedValue = 0;
 
   @override
   Widget build(BuildContext context) {
-    final selectedValue = ref.watch(selectedValueProvider);
-
     return MouseRegion(
       onEnter: (e) {
         setState(() {
@@ -69,14 +67,14 @@ class _FeatureSidebarButtonState extends ConsumerState<FeatureSidebarButton> {
                 const Spacer(),
                 IconButton(
                   onPressed: () {
-                    if (selectedValue == widget.value + 1) {
-                      ref
-                          .read(selectedValueProvider.notifier)
-                          .update((state) => 0);
+                    if (_selectedValue == widget.value + 1) {
+                      setState(() {
+                        _selectedValue = 0;
+                      });
                     } else {
-                      ref
-                          .read(selectedValueProvider.notifier)
-                          .update((state) => widget.value + 1);
+                      setState(() {
+                        _selectedValue = widget.value + 1;
+                      });
                     }
                   },
                   icon: const Icon(
@@ -86,7 +84,7 @@ class _FeatureSidebarButtonState extends ConsumerState<FeatureSidebarButton> {
                 ),
               ],
             ),
-            selectedValue == widget.value + 1
+            _selectedValue == widget.value + 1
                 ? ListView.builder(
                     itemCount: widget.subMenu.length,
                     shrinkWrap: true,
