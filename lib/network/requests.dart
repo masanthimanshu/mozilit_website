@@ -13,7 +13,10 @@ class ApiRequests {
     return null;
   }
 
-  Future<String?> postRequest(String url, dynamic payload) async {
+  Future<String?> postRequest({
+    required String url,
+    required Object payload,
+  }) async {
     final uri = Uri.parse(url);
     final res = await http.post(
       uri,

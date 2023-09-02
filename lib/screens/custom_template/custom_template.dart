@@ -5,6 +5,7 @@ import 'package:mozilit/controller/base/base_sidebar_controller.dart';
 import 'package:mozilit/controller/custom_template/platform_controller.dart';
 import 'package:mozilit/models/base/sidebar_data.dart';
 import 'package:mozilit/network/endpoints.dart';
+import 'package:mozilit/network/requests.dart';
 
 class CustomTemplate extends ConsumerStatefulWidget {
   const CustomTemplate({super.key});
@@ -43,7 +44,30 @@ class _CustomTemplateState extends ConsumerState<CustomTemplate> {
     }
   }
 
-  _handleSubmit() {}
+  _handleSubmit() {
+    ApiRequests().postRequest(
+      url: APIEndpoints().customTemplate,
+      payload: {
+        "name": _name,
+        "user_id": "1",
+        "platform_id": ["2"],
+        "category_id": ["16"],
+        "similar_template": _link,
+      },
+    ).then((value) {
+      if (value != null) {
+        debugPrint(value);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Data added successfully")),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Something went wrong")),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
