@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:routemaster/routemaster.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -9,10 +11,22 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _hiveBox = Hive.box("myBox");
 
   String _otp = "";
 
-  _handleSubmit() {}
+  _handleSubmit() {
+    if (_otp == "123456") {
+      _hiveBox.put("isLoggedIn", "true");
+      Routemaster.of(context).push("/");
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Incorrect OTP"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +48,18 @@ class _OTPScreenState extends State<OTPScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Enter your OTP",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const Row(
+                      children: [
+                        Text(
+                          "Enter your OTP",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Text("(123456)"),
+                      ],
                     ),
                     const SizedBox(height: 25),
                     Container(
@@ -55,11 +75,11 @@ class _OTPScreenState extends State<OTPScreen> {
                         keyboardType: TextInputType.number,
                         onChanged: (text) => _otp = text,
                         decoration: const InputDecoration(
-                          hintText: "Enter Your OTP",
+                          hintText: "Enter Your Six Digit OTP",
                           border: InputBorder.none,
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return "Please enter your OTP";
                           }
                           return null;

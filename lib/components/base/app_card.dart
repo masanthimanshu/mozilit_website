@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:routemaster/routemaster.dart';
 
 class AppCard extends StatefulWidget {
@@ -20,6 +21,7 @@ class AppCard extends StatefulWidget {
 }
 
 class _AppCardState extends State<AppCard> {
+  final _hiveBox = Hive.box("myBox");
   int _hoverValue = 0;
 
   @override
@@ -122,9 +124,11 @@ class _AppCardState extends State<AppCard> {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      Routemaster.of(context).push(
-                        "/feature/${widget.featureId}",
-                      );
+                      _hiveBox.get("isLoggedIn") == "true"
+                          ? Routemaster.of(context).push(
+                              "/feature/${widget.featureId}",
+                            )
+                          : Routemaster.of(context).push("login");
                     },
                     child: const Text("View Details"),
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mozilit/components/features/add_note.dart';
 import 'package:mozilit/controller/features/feature_screen_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
 
@@ -68,7 +69,7 @@ class FeatureMobilePreview extends ConsumerWidget {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () => showPopupForm(context: context),
                       child: const Row(
                         children: [
                           Icon(Icons.list_alt),
@@ -82,6 +83,6 @@ class FeatureMobilePreview extends ConsumerWidget {
               ),
             ],
           )
-        : const Center(child: CircularProgressIndicator());
+        : const Center(child: Text("Nothing for Mobile Preview"));
   }
 }

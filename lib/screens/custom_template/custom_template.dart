@@ -19,20 +19,12 @@ class _CustomTemplateState extends ConsumerState<CustomTemplate> {
 
   String _link = "";
   String _name = "";
-  String _category = "";
+  String? _category;
 
   final List<DropdownMenuItem<String>> _categoryItems = [];
 
   _addCategory({required List<Datum> items}) {
     _categoryItems.clear();
-
-    _categoryItems.add(
-      const DropdownMenuItem(
-        value: "",
-        enabled: false,
-        child: Text("Select a Value"),
-      ),
-    );
 
     for (var ele in items) {
       _categoryItems.add(
@@ -79,7 +71,8 @@ class _CustomTemplateState extends ConsumerState<CustomTemplate> {
       getBaseSidebarData(APIEndpoints().baseSidebar),
     );
 
-    _addCategory(items: categoryData.hasValue ? categoryData.value!.data : []);
+    _addCategory(items: categoryData.value!.data);
+    _category = categoryData.value!.data[0].categoryName;
 
     return Scaffold(
       body: categoryData.hasValue && platformData.hasValue

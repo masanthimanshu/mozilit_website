@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
             flex: 1,
             child: GestureDetector(
               onTap: () => Routemaster.of(context).push("/"),
-              child: const Center(child: Text("L O G O")),
+              child: const Center(child: Text("Mozilit Logo")),
             ),
           ),
           const VerticalDivider(thickness: 1, width: 2),

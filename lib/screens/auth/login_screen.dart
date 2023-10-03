@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,8 +14,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _phone = "";
   String _countryCode = "+91";
-
-  _handleSubmit() {}
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 border: InputBorder.none,
                               ),
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
+                                if (value == null || value.trim().isEmpty) {
                                   return "Please enter your phone";
                                 }
                                 return null;
@@ -87,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            _handleSubmit();
+                            Routemaster.of(context).push("/otp");
                           }
                         },
                         child: const Text("Sign up"),

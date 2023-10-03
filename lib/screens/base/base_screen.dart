@@ -6,6 +6,7 @@ import 'package:mozilit/components/base/sidebar_buttons.dart';
 import 'package:mozilit/controller/base/base_screen_controller.dart';
 import 'package:mozilit/controller/base/base_sidebar_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
+import 'package:mozilit/utils/serach_string.dart';
 import 'package:routemaster/routemaster.dart';
 
 class BaseScreen extends ConsumerStatefulWidget {
@@ -16,7 +17,33 @@ class BaseScreen extends ConsumerStatefulWidget {
 }
 
 class _BaseScreenState extends ConsumerState<BaseScreen> {
-  String _searchQuery = "";
+  final List<String> _sidebarCategories = [];
+
+  _sidebarSearch(String searchQuery) {
+    final res = ref.watch(
+      getBaseSidebarData(APIEndpoints().baseSidebar),
+    );
+
+    if (searchQuery.length <= 1) {
+      _sidebarCategories.clear();
+
+      for (var ele in res.value?.data ?? []) {
+        _sidebarCategories.add(ele.categoryName);
+      }
+
+      setState(() {});
+    } else {
+      final List<String> data = searchWord(
+        array: _sidebarCategories,
+        letters: searchQuery,
+      );
+
+      _sidebarCategories.clear();
+      _sidebarCategories.addAll(data);
+
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +54,12 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
     final templatesData = ref.watch(
       getBaseScreenData(APIEndpoints().baseScreen),
     );
+
+    if (_sidebarCategories.isEmpty) {
+      for (var ele in sidebarData.value?.data ?? []) {
+        _sidebarCategories.add(ele.categoryName);
+      }
+    }
 
     return Scaffold(
       body: sidebarData.hasValue
@@ -48,8 +81,7 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                             SizedBox(
                               width: 200,
                               child: TextField(
-                                keyboardType: TextInputType.number,
-                                onChanged: (text) => _searchQuery = text,
+                                onChanged: (text) => _sidebarSearch(text),
                                 decoration: const InputDecoration(
                                   hintText: "Filter by category",
                                   border: InputBorder.none,
@@ -103,11 +135,11 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                       Expanded(
                         flex: 1,
                         child: ListView.builder(
-                          itemCount: sidebarData.value!.data.length,
+                          itemCount: _sidebarCategories.length,
                           itemBuilder: (e, index) {
                             return BaseSidebarButton(
                               value: index,
-                              data: sidebarData.value!.data[index].categoryName,
+                              data: _sidebarCategories[index],
                             );
                           },
                         ),
