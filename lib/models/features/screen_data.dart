@@ -40,17 +40,16 @@ class Data {
   final String name;
   final String description;
   final int price;
+  final int totalPrice;
   final String discountType;
   final String coverImage;
-  final String productImage;
-  final String productCategory;
-  final List<dynamic> productSubCategory;
-  final List<dynamic> feaature;
-  final List<dynamic> subFeaature;
-  final String productDesignDuration;
-  final String productProfessinalPrototype;
+  final List<String> productImage;
+  final List<ProductCategory> productCategory;
+  final List<FeaatureElement> feaature;
+  final int productDesignDuration;
+  final int productProfessinalPrototype;
   final int productMvpDuration;
-  final String productBuildDuration;
+  final int productBuildDuration;
   final String productPlatform;
   final String productRoadmap;
   final String productCustomStatus;
@@ -61,13 +60,12 @@ class Data {
     required this.name,
     required this.description,
     required this.price,
+    required this.totalPrice,
     required this.discountType,
     required this.coverImage,
     required this.productImage,
     required this.productCategory,
-    required this.productSubCategory,
     required this.feaature,
-    required this.subFeaature,
     required this.productDesignDuration,
     required this.productProfessinalPrototype,
     required this.productMvpDuration,
@@ -83,14 +81,14 @@ class Data {
         name: json["name"],
         description: json["description"],
         price: json["price"],
+        totalPrice: json["totalPrice"],
         discountType: json["discount_type"],
         coverImage: json["cover_image"],
-        productImage: json["product_image"],
-        productCategory: json["product_category"],
-        productSubCategory:
-            List<dynamic>.from(json["product_sub_category"].map((x) => x)),
-        feaature: List<dynamic>.from(json["feaature"].map((x) => x)),
-        subFeaature: List<dynamic>.from(json["sub_feaature"].map((x) => x)),
+        productImage: List<String>.from(json["product_image"].map((x) => x)),
+        productCategory: List<ProductCategory>.from(
+            json["product_category"].map((x) => ProductCategory.fromJson(x))),
+        feaature: List<FeaatureElement>.from(
+            json["feaature"].map((x) => FeaatureElement.fromJson(x))),
         productDesignDuration: json["product_design_duration"],
         productProfessinalPrototype: json["product_professinal_prototype"],
         productMvpDuration: json["product_mvp_duration"],
@@ -106,14 +104,13 @@ class Data {
         "name": name,
         "description": description,
         "price": price,
+        "totalPrice": totalPrice,
         "discount_type": discountType,
         "cover_image": coverImage,
-        "product_image": productImage,
-        "product_category": productCategory,
-        "product_sub_category":
-            List<dynamic>.from(productSubCategory.map((x) => x)),
-        "feaature": List<dynamic>.from(feaature.map((x) => x)),
-        "sub_feaature": List<dynamic>.from(subFeaature.map((x) => x)),
+        "product_image": List<dynamic>.from(productImage.map((x) => x)),
+        "product_category":
+            List<dynamic>.from(productCategory.map((x) => x.toJson())),
+        "feaature": List<dynamic>.from(feaature.map((x) => x.toJson())),
         "product_design_duration": productDesignDuration,
         "product_professinal_prototype": productProfessinalPrototype,
         "product_mvp_duration": productMvpDuration,
@@ -122,5 +119,149 @@ class Data {
         "product_roadmap": productRoadmap,
         "product_custom_status": productCustomStatus,
         "status": status,
+      };
+}
+
+class FeaatureElement {
+  final int featureId;
+  final FeaatureFeaature feaature;
+
+  FeaatureElement({
+    required this.featureId,
+    required this.feaature,
+  });
+
+  factory FeaatureElement.fromJson(Map<String, dynamic> json) =>
+      FeaatureElement(
+        featureId: json["feature_id"],
+        feaature: FeaatureFeaature.fromJson(json["feaature"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "feature_id": featureId,
+        "feaature": feaature.toJson(),
+      };
+}
+
+class FeaatureFeaature {
+  final int featureId;
+  final String featureName;
+  final String status;
+  final String description;
+  final List<SubFeature> subFeature;
+
+  FeaatureFeaature({
+    required this.featureId,
+    required this.featureName,
+    required this.status,
+    required this.description,
+    required this.subFeature,
+  });
+
+  factory FeaatureFeaature.fromJson(Map<String, dynamic> json) =>
+      FeaatureFeaature(
+        featureId: json["feature_id"],
+        featureName: json["feature_name"],
+        status: json["status"],
+        description: json["description"],
+        subFeature: List<SubFeature>.from(
+            json["sub_feature"].map((x) => SubFeature.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "feature_id": featureId,
+        "feature_name": featureName,
+        "status": status,
+        "description": description,
+        "sub_feature": List<dynamic>.from(subFeature.map((x) => x.toJson())),
+      };
+}
+
+class SubFeature {
+  final int subFeatureId;
+  final int featureId;
+  final String subFeature;
+  final int subPrice;
+  final int subDay;
+  final String status;
+
+  SubFeature({
+    required this.subFeatureId,
+    required this.featureId,
+    required this.subFeature,
+    required this.subPrice,
+    required this.subDay,
+    required this.status,
+  });
+
+  factory SubFeature.fromJson(Map<String, dynamic> json) => SubFeature(
+        subFeatureId: json["sub_feature_id"],
+        featureId: json["feature_id"],
+        subFeature: json["sub_feature"],
+        subPrice: json["sub_price"],
+        subDay: json["sub_day"],
+        status: json["status"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "sub_feature_id": subFeatureId,
+        "feature_id": featureId,
+        "sub_feature": subFeature,
+        "sub_price": subPrice,
+        "sub_day": subDay,
+        "status": status,
+      };
+}
+
+class ProductCategory {
+  final int categoryId;
+  final Categories categories;
+
+  ProductCategory({
+    required this.categoryId,
+    required this.categories,
+  });
+
+  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
+      ProductCategory(
+        categoryId: json["category_id"],
+        categories: Categories.fromJson(json["categories"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "category_id": categoryId,
+        "categories": categories.toJson(),
+      };
+}
+
+class Categories {
+  final int categoryId;
+  final String categoryName;
+  final String categoryImage;
+  final int status;
+  final List<dynamic> subCategories;
+
+  Categories({
+    required this.categoryId,
+    required this.categoryName,
+    required this.categoryImage,
+    required this.status,
+    required this.subCategories,
+  });
+
+  factory Categories.fromJson(Map<String, dynamic> json) => Categories(
+        categoryId: json["category_id"],
+        categoryName: json["category_name"],
+        categoryImage: json["category_image"],
+        status: json["status"],
+        subCategories: List<dynamic>.from(json["sub_categories"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "category_id": categoryId,
+        "category_name": categoryName,
+        "category_image": categoryImage,
+        "status": status,
+        "sub_categories": List<dynamic>.from(subCategories.map((x) => x)),
       };
 }

@@ -39,7 +39,7 @@ void showPopupForm({required BuildContext context}) {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             Container(
               height: 250,
               padding: const EdgeInsets.symmetric(horizontal: 15),

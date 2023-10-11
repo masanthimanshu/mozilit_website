@@ -17,11 +17,13 @@ final appRoutes = RouteMap(
     '/login': (e) => const MaterialPage(child: LoginScreen()),
     '/signup': (e) => const MaterialPage(child: SignupScreen()),
     '/template': (e) => const MaterialPage(child: CustomTemplate()),
-    '/delivery': (e) => const MaterialPage(child: DeliveryScreen()),
     '/build-card': (e) => const MaterialPage(child: BuildCardScreen()),
     '/billing': (e) => const MaterialPage(child: BillingDetailsScreen()),
     '/feature/:name': (e) => MaterialPage(
           child: FeaturesScreen(name: e.pathParameters["name"]!),
+        ),
+    '/delivery/:name': (e) => MaterialPage(
+          child: DeliveryScreen(name: e.pathParameters["name"]!),
         ),
   },
 );

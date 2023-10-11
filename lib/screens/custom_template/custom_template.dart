@@ -19,7 +19,7 @@ class _CustomTemplateState extends ConsumerState<CustomTemplate> {
 
   String _link = "";
   String _name = "";
-  String? _category;
+  String _category = "";
 
   final List<DropdownMenuItem<String>> _categoryItems = [];
 

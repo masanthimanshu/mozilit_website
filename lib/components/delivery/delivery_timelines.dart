@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
-class DeliveryTimelines extends StatefulWidget {
-  const DeliveryTimelines({super.key});
+final timelineProvider = StateProvider<double>((ref) => 0);
+
+class DeliveryTimelines extends ConsumerStatefulWidget {
+  const DeliveryTimelines({
+    super.key,
+    required this.price,
+    required this.timeline,
+  });
+
+  final int price;
+  final int timeline;
 
   @override
-  State<DeliveryTimelines> createState() => _DeliveryTimelinesState();
+  ConsumerState<DeliveryTimelines> createState() => _DeliveryTimelinesState();
 }
 
-class _DeliveryTimelinesState extends State<DeliveryTimelines> {
-  double _sliderIndex = 0;
+class _DeliveryTimelinesState extends ConsumerState<DeliveryTimelines> {
+  final _numberFormatter = NumberFormat("###,###.0#", "en_US");
 
   final List<Map<String, String>> _deliveryText = [
     {
@@ -30,6 +41,8 @@ class _DeliveryTimelinesState extends State<DeliveryTimelines> {
 
   @override
   Widget build(BuildContext context) {
+    final res = ref.watch(timelineProvider);
+
     return Row(
       children: [
         Expanded(
@@ -76,37 +89,38 @@ class _DeliveryTimelinesState extends State<DeliveryTimelines> {
                   child: Slider(
                     max: 2,
                     divisions: 2,
-                    value: _sliderIndex,
+                    value: res,
                     onChanged: (e) {
-                      setState(() {
-                        _sliderIndex = e;
-                      });
+                      debugPrint("Value - $e");
+                      ref.watch(timelineProvider.notifier).update((state) => e);
                     },
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("₹ 1,00,000"),
-                      Text("₹ 1,50,000"),
-                      Text("₹ 2,00,000"),
+                      Text("₹ ${_numberFormatter.format(widget.price)}"),
+                      Text("₹ ${_numberFormatter.format(widget.price * 1.5)}"),
+                      Text("₹ ${_numberFormatter.format(widget.price * 2)}"),
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("12 weeks"),
-                      Text("10 Weeks"),
-                      Text("8 weeks"),
+                      Text("${widget.timeline} weeks"),
+                      Text(
+                        "${(widget.timeline * 0.75).toStringAsFixed(0)} Weeks",
+                      ),
+                      Text(
+                        "${(widget.timeline * 0.5).toStringAsFixed(0)} Weeks",
+                      ),
                     ],
                   ),
                 ),
@@ -126,14 +140,14 @@ class _DeliveryTimelinesState extends State<DeliveryTimelines> {
             child: Column(
               children: [
                 Text(
-                  _deliveryText[_sliderIndex.toInt()]["name"]!,
+                  _deliveryText[res.toInt()]["name"]!,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  _deliveryText[_sliderIndex.toInt()]["description"]!,
+                  _deliveryText[res.toInt()]["description"]!,
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -149,24 +163,24 @@ class _DeliveryTimelinesState extends State<DeliveryTimelines> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(5),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "If you kick-off on 31 Jul 2023",
-                  style: TextStyle(
+                  "If you kick-off on - ${DateFormat.yMMMEd().format(DateTime.now())}",
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 10),
-                Row(
+                const SizedBox(height: 10),
+                const Row(
                   children: [
                     Text("Estimated First delivery"),
                     Spacer(),
                     Text("04-Oct-2023"),
                   ],
                 ),
-                Row(
+                const Row(
                   children: [
                     Text("Estimated Final delivery"),
                     Spacer(),

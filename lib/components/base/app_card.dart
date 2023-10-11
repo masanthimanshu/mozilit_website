@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:routemaster/routemaster.dart';
 
 class AppCard extends StatefulWidget {
   const AppCard({
     super.key,
     required this.value,
+    required this.price,
     required this.imgName,
     required this.featureId,
     required this.productName,
   });
 
   final int value;
+  final int price;
   final int featureId;
   final String imgName;
   final String productName;
@@ -21,6 +24,8 @@ class AppCard extends StatefulWidget {
 }
 
 class _AppCardState extends State<AppCard> {
+  final _numberFormatter = NumberFormat("###,###.0#", "en_US");
+
   final _hiveBox = Hive.box("myBox");
   int _hoverValue = 0;
 
@@ -61,7 +66,7 @@ class _AppCardState extends State<AppCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "STUDIO STORE",
+              "BUILD AN APP LIKE",
               style: TextStyle(
                 color: Colors.grey,
               ),
@@ -88,6 +93,8 @@ class _AppCardState extends State<AppCard> {
             const SizedBox(height: 5),
             const Text("Order Management, Payments, Shopping Cart"),
             const SizedBox(height: 5),
+            const Text("+ 32 other features"),
+            const SizedBox(height: 5),
             const Divider(),
             const SizedBox(height: 5),
             const Text(
@@ -99,18 +106,12 @@ class _AppCardState extends State<AppCard> {
             ),
             Row(
               children: [
-                const Text(
-                  "₹ 5,999",
-                  style: TextStyle(
+                Text(
+                  "₹ ${_numberFormatter.format(widget.price)}",
+                  style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Text(
-                  " / month",
-                  style: TextStyle(
-                    color: Colors.grey,
                   ),
                 ),
                 const Spacer(),

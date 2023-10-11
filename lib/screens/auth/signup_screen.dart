@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:routemaster/routemaster.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -9,6 +10,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final RegExp _numberPattern = RegExp(r'^\d{10}$');
   final _formKey = GlobalKey<FormState>();
 
   String _msg = "";
@@ -16,8 +18,6 @@ class _SignupScreenState extends State<SignupScreen> {
   String _email = "";
   String _phone = "";
   String _countryCode = "+91";
-
-  _handleSubmit() {}
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +164,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                 if (value == null || value.isEmpty) {
                                   return "Please enter your phone";
                                 }
+
+                                if (!_numberPattern.hasMatch(value)) {
+                                  return "Enter valid phone number";
+                                }
+
                                 return null;
                               },
                             ),
@@ -177,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            _handleSubmit();
+                            Routemaster.of(context).push("/otp");
                           }
                         },
                         child: const Text("Sign up"),

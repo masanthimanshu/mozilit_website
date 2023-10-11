@@ -6,7 +6,7 @@ import 'package:mozilit/components/features/mobile_preview.dart';
 import 'package:mozilit/components/features/sidebar_buttons.dart';
 import 'package:mozilit/components/features/tab_button.dart';
 import 'package:mozilit/components/price_ticker.dart';
-import 'package:mozilit/controller/features/features_sidebar_controller.dart';
+import 'package:mozilit/controller/features/feature_screen_controller.dart';
 import 'package:mozilit/network/endpoints.dart';
 
 class FeaturesScreen extends ConsumerStatefulWidget {
@@ -24,24 +24,12 @@ class FeaturesScreen extends ConsumerStatefulWidget {
 class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
   int _screenIndex = 0;
   String _searchQuery = "";
-  final List<Widget> _previews = [];
-
-  @override
-  void initState() {
-    super.initState();
-
-    _previews.add(
-      FeatureMobilePreview(featureId: widget.name),
-    );
-
-    _previews.add(
-      FeatureDesktopPreview(featureId: widget.name),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    final res = ref.watch(getFeatureSidebarData(APIEndpoints().featureSidebar));
+    final res = ref.watch(
+      getFeatureScreenData(APIEndpoints().featureScreen + widget.name),
+    );
 
     return Scaffold(
       body: res.hasValue
@@ -129,12 +117,14 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                       Expanded(
                         flex: 1,
                         child: ListView.builder(
-                          itemCount: res.value!.data.length,
+                          itemCount: res.value!.data.feaature.length,
                           itemBuilder: (e, index) {
+                            final data = res.value!.data.feaature[index];
+
                             return FeatureSidebarButton(
                               value: index,
-                              data: res.value!.data[index].featureName,
-                              subMenu: res.value!.data[index].subFeaature,
+                              data: data.feaature.featureName,
+                              subMenu: data.feaature.subFeature,
                             );
                           },
                         ),
@@ -144,15 +134,31 @@ class _FeaturesScreenState extends ConsumerState<FeaturesScreen> {
                         flex: 4,
                         child: Container(
                           color: Colors.grey.shade200,
-                          child: _previews[_screenIndex],
+                          child: _screenIndex == 0
+                              ? FeatureMobilePreview(
+                                  price: res.value!.data.price,
+                                  name: res.value!.data.name,
+                                  description: res.value!.data.description,
+                                  duration:
+                                      res.value!.data.productBuildDuration,
+                                )
+                              : FeatureDesktopPreview(
+                                  name: res.value!.data.name,
+                                  price: res.value!.data.price,
+                                  duration:
+                                      res.value!.data.productBuildDuration,
+                                ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const PriceTicker(
-                  routeName: "/delivery",
+                PriceTicker(
                   btnText: "Plan Delivery",
+                  fixedPrice: res.value!.data.price,
+                  routeName: "/delivery/${widget.name}",
+                  variablePrice: res.value!.data.totalPrice.toDouble(),
+                  timeline: res.value!.data.productBuildDuration.toDouble(),
                 ),
               ],
             )

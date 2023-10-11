@@ -82,6 +82,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           if (value == null || value.trim().isEmpty) {
                             return "Please enter your OTP";
                           }
+
                           return null;
                         },
                       ),

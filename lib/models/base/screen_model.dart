@@ -40,18 +40,17 @@ class Datum {
   final String name;
   final String description;
   final int price;
+  final int totalPrice;
   final String discountType;
   final String coverImage;
-  final String productImage;
-  final dynamic productCategory;
-  final List<dynamic> productSubCategory;
-  final List<Feaature> feaature;
-  final List<dynamic> subFeaature;
-  final dynamic productDesignDuration;
-  final dynamic productProfessinalPrototype;
+  final List<String> productImage;
+  final List<ProductCategory> productCategory;
+  final List<FeaatureElement> feaature;
+  final int productDesignDuration;
+  final int productProfessinalPrototype;
   final int productMvpDuration;
-  final dynamic productBuildDuration;
-  final dynamic productPlatform;
+  final int productBuildDuration;
+  final String productPlatform;
   final String productRoadmap;
   final String productCustomStatus;
   final int status;
@@ -61,13 +60,12 @@ class Datum {
     required this.name,
     required this.description,
     required this.price,
+    required this.totalPrice,
     required this.discountType,
     required this.coverImage,
     required this.productImage,
     required this.productCategory,
-    required this.productSubCategory,
     required this.feaature,
-    required this.subFeaature,
     required this.productDesignDuration,
     required this.productProfessinalPrototype,
     required this.productMvpDuration,
@@ -83,15 +81,14 @@ class Datum {
         name: json["name"],
         description: json["description"],
         price: json["price"],
+        totalPrice: json["totalPrice"],
         discountType: json["discount_type"],
         coverImage: json["cover_image"],
-        productImage: json["product_image"],
-        productCategory: json["product_category"],
-        productSubCategory:
-            List<dynamic>.from(json["product_sub_category"].map((x) => x)),
-        feaature: List<Feaature>.from(
-            json["feaature"].map((x) => Feaature.fromJson(x))),
-        subFeaature: List<dynamic>.from(json["sub_feaature"].map((x) => x)),
+        productImage: List<String>.from(json["product_image"].map((x) => x)),
+        productCategory: List<ProductCategory>.from(
+            json["product_category"].map((x) => ProductCategory.fromJson(x))),
+        feaature: List<FeaatureElement>.from(
+            json["feaature"].map((x) => FeaatureElement.fromJson(x))),
         productDesignDuration: json["product_design_duration"],
         productProfessinalPrototype: json["product_professinal_prototype"],
         productMvpDuration: json["product_mvp_duration"],
@@ -107,14 +104,13 @@ class Datum {
         "name": name,
         "description": description,
         "price": price,
+        "totalPrice": totalPrice,
         "discount_type": discountType,
         "cover_image": coverImage,
-        "product_image": productImage,
-        "product_category": productCategory,
-        "product_sub_category":
-            List<dynamic>.from(productSubCategory.map((x) => x)),
+        "product_image": List<dynamic>.from(productImage.map((x) => x)),
+        "product_category":
+            List<dynamic>.from(productCategory.map((x) => x.toJson())),
         "feaature": List<dynamic>.from(feaature.map((x) => x.toJson())),
-        "sub_feaature": List<dynamic>.from(subFeaature.map((x) => x)),
         "product_design_duration": productDesignDuration,
         "product_professinal_prototype": productProfessinalPrototype,
         "product_mvp_duration": productMvpDuration,
@@ -126,46 +122,126 @@ class Datum {
       };
 }
 
-class Feaature {
-  final int categoryId;
-  final dynamic featureName;
+class FeaatureElement {
+  final int featureId;
+  final FeaatureFeaature feaature;
+
+  FeaatureElement({
+    required this.featureId,
+    required this.feaature,
+  });
+
+  factory FeaatureElement.fromJson(Map<String, dynamic> json) =>
+      FeaatureElement(
+        featureId: json["feature_id"],
+        feaature: FeaatureFeaature.fromJson(json["feaature"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "feature_id": featureId,
+        "feaature": feaature.toJson(),
+      };
+}
+
+class FeaatureFeaature {
+  final int featureId;
+  final String featureName;
   final String status;
   final String description;
-  final String subFeaature;
+  final List<SubFeature> subFeature;
 
-  Feaature({
-    required this.categoryId,
+  FeaatureFeaature({
+    required this.featureId,
     required this.featureName,
     required this.status,
     required this.description,
-    required this.subFeaature,
+    required this.subFeature,
   });
 
-  factory Feaature.fromJson(Map<String, dynamic> json) => Feaature(
-        categoryId: json["category_id"],
+  factory FeaatureFeaature.fromJson(Map<String, dynamic> json) =>
+      FeaatureFeaature(
+        featureId: json["feature_id"],
         featureName: json["feature_name"],
         status: json["status"],
         description: json["description"],
-        subFeaature: json["sub_feaature"],
+        subFeature: List<SubFeature>.from(
+            json["sub_feature"].map((x) => SubFeature.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "feature_id": featureId,
+        "feature_name": featureName,
+        "status": status,
+        "description": description,
+        "sub_feature": List<dynamic>.from(subFeature.map((x) => x.toJson())),
+      };
+}
+
+class SubFeature {
+  final int subFeatureId;
+  final int featureId;
+  final String subFeature;
+  final int subPrice;
+  final int subDay;
+  final String status;
+
+  SubFeature({
+    required this.subFeatureId,
+    required this.featureId,
+    required this.subFeature,
+    required this.subPrice,
+    required this.subDay,
+    required this.status,
+  });
+
+  factory SubFeature.fromJson(Map<String, dynamic> json) => SubFeature(
+        subFeatureId: json["sub_feature_id"],
+        featureId: json["feature_id"],
+        subFeature: json["sub_feature"],
+        subPrice: json["sub_price"],
+        subDay: json["sub_day"],
+        status: json["status"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "sub_feature_id": subFeatureId,
+        "feature_id": featureId,
+        "sub_feature": subFeature,
+        "sub_price": subPrice,
+        "sub_day": subDay,
+        "status": status,
+      };
+}
+
+class ProductCategory {
+  final int categoryId;
+  final Categories categories;
+
+  ProductCategory({
+    required this.categoryId,
+    required this.categories,
+  });
+
+  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
+      ProductCategory(
+        categoryId: json["category_id"],
+        categories: Categories.fromJson(json["categories"]),
       );
 
   Map<String, dynamic> toJson() => {
         "category_id": categoryId,
-        "feature_name": featureName,
-        "status": status,
-        "description": description,
-        "sub_feaature": subFeaature,
+        "categories": categories.toJson(),
       };
 }
 
-class ProductCategoryElement {
+class Categories {
   final int categoryId;
-  final dynamic categoryName;
+  final String categoryName;
   final String categoryImage;
-  final String status;
-  final String subCategories;
+  final int status;
+  final List<dynamic> subCategories;
 
-  ProductCategoryElement({
+  Categories({
     required this.categoryId,
     required this.categoryName,
     required this.categoryImage,
@@ -173,13 +249,12 @@ class ProductCategoryElement {
     required this.subCategories,
   });
 
-  factory ProductCategoryElement.fromJson(Map<String, dynamic> json) =>
-      ProductCategoryElement(
+  factory Categories.fromJson(Map<String, dynamic> json) => Categories(
         categoryId: json["category_id"],
         categoryName: json["category_name"],
         categoryImage: json["category_image"],
         status: json["status"],
-        subCategories: json["sub_categories"],
+        subCategories: List<dynamic>.from(json["sub_categories"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -187,91 +262,6 @@ class ProductCategoryElement {
         "category_name": categoryName,
         "category_image": categoryImage,
         "status": status,
-        "sub_categories": subCategories,
-      };
-}
-
-class ProductPlatformElement {
-  final int id;
-  final int platformId;
-  final int itemId;
-  final int userId;
-  final String status;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final PlatformName platformName;
-
-  ProductPlatformElement({
-    required this.id,
-    required this.platformId,
-    required this.itemId,
-    required this.userId,
-    required this.status,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.platformName,
-  });
-
-  factory ProductPlatformElement.fromJson(Map<String, dynamic> json) =>
-      ProductPlatformElement(
-        id: json["id"],
-        platformId: json["platform_id"],
-        itemId: json["item_id"],
-        userId: json["user_id"],
-        status: json["status"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        platformName: PlatformName.fromJson(json["platform_name"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "platform_id": platformId,
-        "item_id": itemId,
-        "user_id": userId,
-        "status": status,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "platform_name": platformName.toJson(),
-      };
-}
-
-class PlatformName {
-  final int id;
-  final String name;
-  final String image;
-  final String commission;
-  final String status;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
-  PlatformName({
-    required this.id,
-    required this.name,
-    required this.image,
-    required this.commission,
-    required this.status,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  factory PlatformName.fromJson(Map<String, dynamic> json) => PlatformName(
-        id: json["id"],
-        name: json["name"],
-        image: json["image"],
-        commission: json["Commission"],
-        status: json["status"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "image": image,
-        "Commission": commission,
-        "status": status,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "sub_categories": List<dynamic>.from(subCategories.map((x) => x)),
       };
 }

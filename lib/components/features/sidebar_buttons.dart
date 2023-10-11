@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mozilit/models/features/sidebar_data.dart';
+import 'package:intl/intl.dart';
+import 'package:mozilit/models/features/screen_data.dart';
 
 class FeatureSidebarButton extends ConsumerStatefulWidget {
   const FeatureSidebarButton({
@@ -12,7 +13,7 @@ class FeatureSidebarButton extends ConsumerStatefulWidget {
 
   final int value;
   final String data;
-  final List<SubFeaature> subMenu;
+  final List<SubFeature> subMenu;
 
   @override
   ConsumerState<FeatureSidebarButton> createState() =>
@@ -20,6 +21,8 @@ class FeatureSidebarButton extends ConsumerStatefulWidget {
 }
 
 class _FeatureSidebarButtonState extends ConsumerState<FeatureSidebarButton> {
+  final _numberFormatter = NumberFormat("###,###.0#", "en_US");
+
   int _hoverValue = 0;
   int _selectedValue = 0;
 
@@ -86,87 +89,105 @@ class _FeatureSidebarButtonState extends ConsumerState<FeatureSidebarButton> {
             ),
             _selectedValue == widget.value + 1
                 ? ListView.builder(
-                    itemCount: widget.subMenu.length,
                     shrinkWrap: true,
+                    itemCount: widget.subMenu.length,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (e, index) {
+                      final subItemPrice = widget.subMenu[index].subPrice;
+
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
+                        child: Column(
                           children: [
-                            const Icon(
-                              Icons.check_circle,
-                              color: Colors.indigo,
-                            ),
-                            const SizedBox(width: 5),
-                            Column(
+                            Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(widget.subMenu[index].subFeature),
-                                const SizedBox(height: 5),
-                                Text(
-                                  widget.subMenu[index].subPrice.toString(),
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                  ),
+                                const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.indigo,
                                 ),
-                                Text(
-                                  widget.subMenu[index].subDay.toString(),
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                  ),
+                                const SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(widget.subMenu[index].subFeature),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      "₹ ${_numberFormatter.format(subItemPrice)}",
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${widget.subMenu[index].subDay} days",
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                              vertical: 5,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            child: const Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.grey,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                              vertical: 5,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                width: 1,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            child: const Icon(
+                                              Icons.delete_forever,
+                                              color: Colors.grey,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            const Spacer(),
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 5,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                child: const Icon(
-                                  Icons.remove_red_eye,
-                                  color: Colors.grey,
-                                  size: 15,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 5,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                child: const Icon(
-                                  Icons.delete_forever,
-                                  color: Colors.grey,
-                                  size: 15,
-                                ),
-                              ),
-                            ),
+                            const SizedBox(height: 15),
+                            widget.subMenu.length - 1 != index
+                                ? const Divider()
+                                : const SizedBox(),
                           ],
                         ),
                       );
-                    })
-                : Container(),
+                    },
+                  )
+                : const SizedBox(),
           ],
         ),
       ),

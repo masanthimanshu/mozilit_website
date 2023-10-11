@@ -158,6 +158,8 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                                 itemBuilder: (e, index) {
                                   return AppCard(
                                     value: index,
+                                    price:
+                                        templatesData.value!.data[index].price,
                                     featureId:
                                         templatesData.value!.data[index].id,
                                     productName:

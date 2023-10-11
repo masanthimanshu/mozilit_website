@@ -10,6 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final RegExp _numberPattern = RegExp(r'^\d{10}$');
   final _formKey = GlobalKey<FormState>();
 
   String _phone = "";
@@ -73,6 +74,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (value == null || value.trim().isEmpty) {
                                   return "Please enter your phone";
                                 }
+
+                                if (!_numberPattern.hasMatch(value)) {
+                                  return "Enter valid phone number";
+                                }
+
                                 return null;
                               },
                             ),
@@ -89,8 +95,30 @@ class _LoginScreenState extends State<LoginScreen> {
                             Routemaster.of(context).push("/otp");
                           }
                         },
-                        child: const Text("Sign up"),
+                        child: const Text("Login"),
                       ),
+                    ),
+                    const SizedBox(height: 25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Don't have an account?"),
+                        const SizedBox(width: 5),
+                        InkWell(
+                          onTap: () {
+                            Routemaster.of(context).push("/signup");
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                              "Sign up",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
