@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final sidebarIdProvider = StateProvider<int?>((ref) => null);
+
 class BaseSidebarButton extends ConsumerStatefulWidget {
   const BaseSidebarButton({
     super.key,
     required this.data,
     required this.value,
+    required this.categoryId,
   });
 
   final int value;
   final String data;
+  final int categoryId;
 
   @override
   ConsumerState<BaseSidebarButton> createState() => _BaseSidebarButtonState();
@@ -17,10 +21,11 @@ class BaseSidebarButton extends ConsumerStatefulWidget {
 
 class _BaseSidebarButtonState extends ConsumerState<BaseSidebarButton> {
   int _hoverValue = 0;
-  int _selectedValue = 0;
 
   @override
   Widget build(BuildContext context) {
+    final res = ref.watch(sidebarIdProvider);
+
     return MouseRegion(
       onEnter: (e) {
         setState(() {
@@ -50,17 +55,15 @@ class _BaseSidebarButtonState extends ConsumerState<BaseSidebarButton> {
             Text(widget.data),
             const Spacer(),
             Checkbox(
-              value: widget.value + 1 == _selectedValue,
+              value: res == widget.categoryId,
               onChanged: (e) {
-                if (_selectedValue == widget.value + 1) {
-                  setState(() {
-                    _selectedValue = 0;
-                  });
-                } else {
-                  setState(() {
-                    _selectedValue = widget.value + 1;
-                  });
-                }
+                res == widget.categoryId
+                    ? ref
+                        .read(sidebarIdProvider.notifier)
+                        .update((state) => null)
+                    : ref
+                        .read(sidebarIdProvider.notifier)
+                        .update((state) => widget.categoryId);
               },
             ),
           ],

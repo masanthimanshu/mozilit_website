@@ -1,4 +1,6 @@
 class APIEndpoints {
+  final String baseScreenById =
+      "http://137.184.60.122/public/superAdminLogin/mozilitech/mozilitech/api/v1/template/gettemplateListByCatId?category_id=";
   final String featureScreen =
       "http://137.184.60.122/public/superAdminLogin/mozilitech/mozilitech/api/v1/template/gettemplateListById?template_id=";
   final String customTemplate =

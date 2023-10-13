@@ -17,7 +17,7 @@ class BaseScreen extends ConsumerStatefulWidget {
 }
 
 class _BaseScreenState extends ConsumerState<BaseScreen> {
-  final List<String> _sidebarCategories = [];
+  final List<Map<String, dynamic>> _sidebarCategories = [];
 
   _sidebarSearch(String searchQuery) {
     final res = ref.watch(
@@ -28,12 +28,14 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
       _sidebarCategories.clear();
 
       for (var ele in res.value?.data ?? []) {
-        _sidebarCategories.add(ele.categoryName);
+        _sidebarCategories.add(
+          {"name": ele.categoryName, "id": ele.categoryId},
+        );
       }
 
       setState(() {});
     } else {
-      final List<String> data = searchWord(
+      final data = searchWord(
         array: _sidebarCategories,
         letters: searchQuery,
       );
@@ -47,17 +49,25 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final sidebarId = ref.watch(sidebarIdProvider);
+
     final sidebarData = ref.watch(
       getBaseSidebarData(APIEndpoints().baseSidebar),
     );
 
     final templatesData = ref.watch(
-      getBaseScreenData(APIEndpoints().baseScreen),
+      getBaseScreenData(
+        sidebarId == null
+            ? APIEndpoints().baseScreen
+            : APIEndpoints().baseScreenById + sidebarId.toString(),
+      ),
     );
 
     if (_sidebarCategories.isEmpty) {
       for (var ele in sidebarData.value?.data ?? []) {
-        _sidebarCategories.add(ele.categoryName);
+        _sidebarCategories.add(
+          {"name": ele.categoryName, "id": ele.categoryId},
+        );
       }
     }
 
@@ -139,7 +149,8 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
                           itemBuilder: (e, index) {
                             return BaseSidebarButton(
                               value: index,
-                              data: _sidebarCategories[index],
+                              data: _sidebarCategories[index]["name"],
+                              categoryId: _sidebarCategories[index]["id"],
                             );
                           },
                         ),
